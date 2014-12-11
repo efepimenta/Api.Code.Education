@@ -1,0 +1,22 @@
+{% include 'header.twig' %}
+{% if not logado %}
+    <h4>Favor logar para fazer alterações</h4>
+{% endif %}
+
+<h1>Novo Produto</h1>
+<form action="{{ 'productins' }}" method="post">
+    <label>Nome: <input type="text" name="nome"></label><br>
+    <label>Descrição:<input type="text" name="descricao"></label><br>
+
+    <label>Categorias: <select name="categoria">
+        {% for cat in categorias %}
+        <option>{{ cat.descricao }}</option>
+        {% endfor %}
+    </select></label><br>
+
+    <label>Valor:<input type="text" name="valor"></label>
+    <button type="submit" class="btn btn-primary" {% if not logado %}disabled="disabled"{% endif %}>Salvar
+    </button>
+</form>
+<br>
+{% include 'footer.twig' %}

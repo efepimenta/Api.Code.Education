@@ -1,0 +1,10 @@
+nbproject
+.project
+.settings
+.idea
+.buildpath
+vendor/
+bin/
+composer.lock
+/tests/log
+cache/

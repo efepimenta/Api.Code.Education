@@ -1,0 +1,30 @@
+<ul class="nav nav-pills">
+    {% for men in menu %}
+        {% for mnu in men %}
+            {# monta o menu quando o item é um link simples tag(L) #}
+            {% if mnu.kind == 'L' %}
+                <li><a href="{{ app.asset_path ~ mnu.rota }}">{{ mnu.nome }}</a></li>
+            {% endif %}
+            {# monta o menu quando ele é um dropdown (tag M) #}
+            {% if mnu.kind == 'M' %}
+                {% set ant = 'closeable' %}
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ mnu.nome }}<span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+            {% endif %}
+            {# monta o menu quando ele é item do dropdown (tag I) #}
+            {% if mnu.kind == 'I' %}
+                <li><a href="{{ app.asset_path ~ mnu.rota }}">{{ mnu.nome }}</a></li>
+            {% endif %}
+            {# monta um divider (tag D) #}
+            {% if mnu.kind == 'D' %}
+                <li class="divider"></li>
+            {% endif %}
+            {# indica o fim do submenu (tag D) #}
+            {% if mnu.fim == 'S' %}
+                </ul>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</ul>
