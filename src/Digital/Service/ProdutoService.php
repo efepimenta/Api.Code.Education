@@ -52,7 +52,11 @@ class ProdutoService
 	public function deletar($id) {
 
 		$sql = "DELETE FROM produtos WHERE id={$id}";
-		return $this->database->exec($sql);
+		$result = $this->database->exec($sql);
+		if (!$result){
+			return false;
+		}
+		return $result;
 	
 	}
 
@@ -75,7 +79,11 @@ class ProdutoService
         produtos.valor, produtos.imagem, categorias.nome as cat_nome, categorias.descricao as cat_descricao
         FROM produtos
         inner join categorias on produtos.id_categoria = categorias.id where produtos.id = {$id}";
-		return $this->database->select($sql);
+		$result = $this->database->select($sql);
+		if (count($result) == 0){
+			return "Nenhum produto encontrado com o id {$id}";
+		}
+		return $result;
 	
 	}
 

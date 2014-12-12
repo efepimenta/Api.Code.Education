@@ -3,24 +3,24 @@ use Digital\Service\ProdutoService;
 use Digital\Database;
 use Digital\Entity\Produto;
 use Digital\Service\CategoriaService;
+use Digital\Service\Validator\ProdutoValidator;
 
 $cat = new CategoriaService($database);
 
 if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 	
-	if ((empty($_POST['nome'])) || (empty($_POST['descricao'])) || (empty($_POST['valor'])) || (empty($_POST['categoria']))) {
+	$validator = new ProdutoValidator();
+	if (! $validator->validar('inserir', '', $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor']) ){
+		$dados['erros'] = $validator->mensagemDeErro();
 		echo $twig->render('produto/novo.incompleto.twig', $dados);
 		exit();
 	}
 	
 	$service = new ProdutoService($database);
-	$produto = new Produto();
+	$produto = $validator->getProduto();
 	
 	$categoria = $cat->idPorDescricao($_POST['categoria'], true);
-	$produto->setNome($_POST['nome']);
-	$produto->setDescricao($_POST['descricao']);
 	$produto->setCategoria($categoria['id']);
-	$produto->setValor($_POST['valor']);
 	
 	if ($service->inserir($produto)) {
 		echo $twig->render("produto/novo.ok.twig", $dados);

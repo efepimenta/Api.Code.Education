@@ -1,10 +1,13 @@
 <?php
 use Digital\Service\ProdutoService;
+use Digital\Service\Validator\ProdutoValidator;
 $service = new ProdutoService($database);
 
 if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 	
-	if ((empty($_POST['id']))) {
+	$validator = new ProdutoValidator();
+	if (! $validator->validar('deletar', $_POST['id'])) {
+		$dados['erros'] = $validator->mensagemDeErro();
 		echo $twig->render('produto/excluir.incompleto.twig', $dados);
 		exit();
 	}

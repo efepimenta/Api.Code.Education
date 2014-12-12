@@ -99,7 +99,7 @@ CREATE TABLE `produtos` (
   `codigo` varchar(20) NOT NULL,
   `nome` varchar(100) NOT NULL,
   `descricao` text NOT NULL,
-  `valor` decimal(10,0) NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
   `imagem` varchar(50) DEFAULT NULL,
   `id_categoria` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
