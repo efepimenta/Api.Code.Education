@@ -96,7 +96,7 @@ DROP TABLE IF EXISTS `produtos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `produtos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo` varchar(20) NOT NULL,
+  `codigo` varchar(20),
   `nome` varchar(100) NOT NULL,
   `descricao` text NOT NULL,
   `valor` decimal(10,2) NOT NULL,

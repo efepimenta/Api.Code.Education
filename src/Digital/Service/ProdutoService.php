@@ -21,7 +21,7 @@ class ProdutoService
 
 	public function atualizar(Produto $produto) {
 
-		$sql = "UPDATE produtos SET nome='{$produto->getNome()}',descricao='{$produto->getDescricao()}',
+		$sql = "UPDATE produtos SET nome='{$produto->getNome()}',descricao='{$produto->getDescricao()}',codigo='0001',
 		id_categoria='{$produto->getCategoria()}',valor='{$produto->getValor()}' where id='{$produto->getId()}'";
 		return $this->database->exec($sql);
 	
@@ -37,7 +37,7 @@ class ProdutoService
 
 		$id = $this->database->nextID('produtos');
 		
-		$sql = "insert into produtos (id,nome,valor,descricao,id_categoria) values ({$id},'{$produto->getNome()}',
+		$sql = "insert into produtos (id,codigo,nome,valor,descricao,id_categoria) values ({$id},'0001','{$produto->getNome()}',
 		'{$produto->getValor()}','{$produto->getDescricao()}','{$produto->getCategoria()}')";
 		return $this->database->exec($sql);
 	

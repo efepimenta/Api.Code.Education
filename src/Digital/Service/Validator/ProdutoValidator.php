@@ -97,7 +97,7 @@ class ProdutoValidator
 		
 		if (($acao === 'inserir') || ($acao === 'atualizar')) {
 			$this->produto = new Produto();
-			if ($acao !== 'inserir') {
+			if ($acao === 'atualizar') {
 				$this->produto->setId($id);
 			}
 			$this->produto->setNome($nome);
