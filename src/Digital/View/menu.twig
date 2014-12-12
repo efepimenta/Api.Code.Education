@@ -3,7 +3,7 @@
         {% for mnu in men %}
             {# monta o menu quando o item é um link simples tag(L) #}
             {% if mnu.kind == 'L' %}
-                <li><a href="{{ app.asset_path ~ mnu.rota }}">{{ mnu.nome }}</a></li>
+                <li><a href="{{ path() ~ mnu.rota }}">{{ mnu.nome }}</a></li>
             {% endif %}
             {# monta o menu quando ele é um dropdown (tag M) #}
             {% if mnu.kind == 'M' %}
@@ -14,7 +14,7 @@
             {% endif %}
             {# monta o menu quando ele é item do dropdown (tag I) #}
             {% if mnu.kind == 'I' %}
-                <li><a href="{{ app.asset_path ~ mnu.rota }}">{{ mnu.nome }}</a></li>
+                <li><a href="{{ path() ~ mnu.rota }}">{{ mnu.nome }}</a></li>
             {% endif %}
             {# monta um divider (tag D) #}
             {% if mnu.kind == 'D' %}

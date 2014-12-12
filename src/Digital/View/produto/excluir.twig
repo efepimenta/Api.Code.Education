@@ -1,0 +1,60 @@
+{% include 'header.twig' %}
+{% if not logado %}
+    <h4>Favor logar para fazer alterações</h4>
+{% else %}
+<h1>Lista de Produtos</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>Nome</th>
+        <th>Descricao</th>
+        <th>Categoria</th>
+        <th>Valor</th>
+        <th>Controle</th>
+    </tr>
+
+    {% for produto in produtos %}
+        <tr>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.descricao }}</td>
+            <td>{{ produto.cat_descricao }}</td>
+            <td>{{ produto.valor }}</td>
+            <td>
+                <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-danger btn-xs"
+                        data-toggle="modal" data-target="#delete{{ produto.id }}">Excluir
+                </button>
+            </td>
+            <form action="{{ path() }}produto/excluir" method="post">
+            	<input type="hidden" name="id" value="{{ produto.id }}">
+                <!-- Modal -->
+                <div class="modal fade" id="delete{{ produto.id }}" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Editando
+                                    <strong>{{ produto.nome }}</strong></h4>
+                            </div>
+                            <div class="modal-body">
+
+                                Deseja reamente remover <strong>{{ produto.nome }}</strong>?
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-danger">Remover</button>
+                                <input type="hidden" name="acao" value="excluir">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </tr>
+    {% endfor %}
+</table>
+<br>
+{% endif %}
+
+{% include 'footer.twig' %}

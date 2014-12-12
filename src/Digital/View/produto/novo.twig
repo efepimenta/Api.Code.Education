@@ -1,10 +1,10 @@
 {% include 'header.twig' %}
 {% if not logado %}
     <h4>Favor logar para fazer alterações</h4>
-{% endif %}
+{% else %}
 
 <h1>Novo Produto</h1>
-<form action="{{ 'productins' }}" method="post">
+<form action="{{ path() }}produto/novo" method="post">
     <label>Nome: <input type="text" name="nome"></label><br>
     <label>Descrição:<input type="text" name="descricao"></label><br>
 
@@ -15,8 +15,10 @@
     </select></label><br>
 
     <label>Valor:<input type="text" name="valor"></label>
-    <button type="submit" class="btn btn-primary" {% if not logado %}disabled="disabled"{% endif %}>Salvar
-    </button>
+    <button type="submit" class="btn btn-primary" {% if not logado %}disabled="disabled"{% endif %}>Salvar</button>
+    <input type="hidden" name="acao" value="salvar">
 </form>
 <br>
+
+{% endif %}
 {% include 'footer.twig' %}

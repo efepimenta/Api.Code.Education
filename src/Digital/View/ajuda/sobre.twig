@@ -1,0 +1,22 @@
+{% include 'header.twig' %}
+<h1>Acesso à API</h1>
+{#<a href="{{ path('productlist') }}">Para listar os produtos (HTML):</a><br>#}
+    {#<a href="{{ path('productdel') }}">Para excluir os produtos (HTML):</a><br>#}
+    {#<a href="{{ path('productedit') }}">Para alterar os produtos (HTML):</a><br>#}
+    {#<a href="{{ path('productinsert') }}">Para criar um produto:</a><br>#}
+
+<br>
+<h3>url's para acesso via REST</h3>
+<pre>
+    <b>Listar todos os produtos:</b>
+    {{ path() }}api/produto
+    <b>Listar um produto:</b>
+    {{ path() }}api/produto/ID
+    <b>Inserir um produto:</b>
+    {{ path() }}api/produto -> usar POST -> (nome=?, descricao=?, categoria=?, valor=?)
+    <b>Alterar um produto</b>
+    {{ path() }}api/produto/ID -> usar PUT -> (nome=?, descricao=?, categoria=?, valor=?) (usar x-www-form-urlencoded)
+    <b>Excluir um produto:</b>
+    {{ path() }}api/produto/ID -> usar DELETE
+</pre>
+{% include 'footer.twig' %}

@@ -1,0 +1,67 @@
+{% include 'header.twig' %}
+{% if not logado %}
+    <h4>Favor logar para fazer alterações</h4>
+{% else %}
+<h1>Lista de Produtos</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>Nome</th>
+        <th>Descricao</th>
+        <th>Categoria</th>
+        <th>Valor</th>
+        <th>Controle</th>
+    </tr>
+
+    {% for produto in produtos %}
+        <tr>
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.descricao }}</td>
+            <td>{{ produto.cat_descricao }}</td>
+            <td>{{ produto.valor }}</td>
+            <td>
+                <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-primary btn-xs"
+                        data-toggle="modal" data-target="#edit{{ produto.id }}">Editar
+                </button>
+            </td>
+            <form action="{{ path() }}produto/editar" method="post">
+            	<input type="hidden" name="id" value="{{ produto.id }}">
+                <!-- Modal -->
+                <div class="modal fade" id="edit{{ produto.id }}" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Editando
+                                    <strong>{{ produto.nome }}</strong></h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <label>Nome: <input type="text" name="nome" value="{{ produto.nome }}"></label><br>
+                                <label>Descrição:<input type="text" name="descricao"
+                                                        value="{{ produto.descricao }}"></label><br>
+                                <label>Categorias: <select name="categoria">
+                                        {% for cat in categorias %}
+                                            <option>{{ cat.descricao }}</option>
+                                        {% endfor %}
+                                    </select></label><br>
+                                <label>Valor:<input type="text" name="valor" value="{{ produto.valor }}"></label>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                                <input type="hidden" name="acao" value="editar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </tr>
+    {% endfor %}
+</table>
+<br>
+{% endif %}
+{% include 'footer.twig' %}

@@ -1,22 +1,64 @@
 <?php
+use Digital\Service\ProdutoService;
+use Digital\Database;
+use Digital\Entity\Produto;
+use Symfony\Component\HttpFoundation\Request;
 
-$app->get("/produtos", function() use($app) {
-	// sua lógica para listar todos os produtos
-	return $app->json(lista_de_produtos);
+$produto = $app['controllers_factory'];
+
+$service = new ProdutoService($database);
+
+$produto->get("/", function () use($app, $service) {
+	
+	return $app->json($service->listar());
 });
-$app->get("/produtos/{id}", function($id) use($app) {
+$produto->get("/{id}", function ($id) use($app, $service) {
 	// sua lógica para listar o produto de ID $id
-	return $app->json(produto);
+	return $app->json($service->listarPorId($id));
 });
-$app->post("/produtos", function(Request $request) use($app) {
-	// sua lógica para inserir 1 novo registro
-	return $app->json(registro_inserido);
+$produto->post("/", function (Request $request) use($app, $service) {
+	if ((empty($request->get('nome'))) || (empty($request->get('descricao'))) || (empty($request->get('categoria'))) || (empty($request->get('valor')))) {
+		return $app->json('Faltando informacoes', 200);
+	}
+	
+	$produto = new Produto();
+	$produto->setId($service->nextID());
+	$produto->setNome($request->get('nome'));
+	$produto->setDescricao($request->get('descricao'));
+	$produto->setCategoria($request->get('categoria'));
+	$produto->setValor($request->get('valor'));
+	
+	if ($service->inserir($produto)) {
+		return $app->json('Produto inserido com sucesso');
+	}
+	return $app->json('Erro ao inserir produto', 200);
 });
-$app->put("/produtos/{id}", function(Request $request, $id) use($app) {
-	// sua lógica para editar o produto de ID $id
-	return $app->json(registro_editado);
+$produto->put("/{id}", function (Request $request, $id) use($app, $service) {
+	if ((empty($request->get('id'))) || (empty($request->get('nome'))) || (empty($request->get('descricao'))) || (empty($request->get('categoria'))) || (empty($request->get('valor')))) {
+		return $app->json('Faltando informacoes', 200);
+	}
+	
+	$produto = new Produto();
+	$produto->setId($id);
+	$produto->setNome($request->get('nome'));
+	$produto->setDescricao($request->get('descricao'));
+	$produto->setCategoria($request->get('categoria'));
+	$produto->setValor($request->get('valor'));
+	
+	if ($service->atualizar($produto)) {
+		return $app->json('Produto atualizado com sucesso');
+	}
+	return $app->json('Erro ao atualizar produto', 200);
 });
-$app->delete("/produtos/{id}", function($id) use($app) {
-	// sua lógica para apagar o produto de ID $id
-	return $app->json(apagado);
+$produto->delete("/{id}", function (Request $request, $id) use($app, $service) {
+	if ((empty($request->get('id')))) {
+		return $app->json('Faltando informacoes', 200);
+	}
+	
+	if ($service->deletar($id)) {
+		return $app->json('Produto excluido com sucesso');
+	}
+	return $app->json('Erro ao excluir produto', 200);
 });
+
+return $produto;

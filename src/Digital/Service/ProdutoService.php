@@ -14,6 +14,10 @@ class ProdutoService
 		$this->database = $database;
 	
 	}
+	
+	public function nextID(){
+		return $this->database->nextID('produtos');
+	}
 
 	public function atualizar(Produto $produto) {
 
@@ -25,18 +29,23 @@ class ProdutoService
 
 	/**
 	 * Atualiza um Produto
-	 * 
+	 *
 	 * @param Produto $produto        	
 	 * @return boolean
 	 */
 	public function inserir(Produto $produto) {
 
+		$id = $this->database->nextID('produtos');
+		
+		$sql = "insert into produtos (id,nome,valor,descricao,id_categoria) values ({$id},'{$produto->getNome()}',
+		'{$produto->getValor()}','{$produto->getDescricao()}','{$produto->getCategoria()}')";
+		return $this->database->exec($sql);
 	
 	}
 
 	/**
 	 * Remove um Produto
-	 * 
+	 *
 	 * @param integer $id        	
 	 * @return boolean
 	 */
@@ -47,11 +56,25 @@ class ProdutoService
 	
 	}
 
+	/**
+	 * Lista todos os Produtos
+	 */
 	public function listar() {
+
 		$sql = 'SELECT produtos.id, produtos.codigo, produtos.nome, produtos.descricao,
         produtos.valor, produtos.imagem, categorias.nome as cat_nome, categorias.descricao as cat_descricao
         FROM produtos
         inner join categorias on produtos.id_categoria = categorias.id';
+		return $this->database->select($sql);
+	
+	}
+	
+	public function listarPorId($id) {
+	
+		$sql = "SELECT produtos.id, produtos.codigo, produtos.nome, produtos.descricao,
+        produtos.valor, produtos.imagem, categorias.nome as cat_nome, categorias.descricao as cat_descricao
+        FROM produtos
+        inner join categorias on produtos.id_categoria = categorias.id where produtos.id = {$id}";
 		return $this->database->select($sql);
 	
 	}
