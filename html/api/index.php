@@ -3,8 +3,6 @@
 use Digital\Database;
 require_once __DIR__ . '/../../src/bootstrap.php';
 
-$db_settings = ["protocol" => "mysql","host" => "localhost","dbname" => "site","user" => "root","pass" => "root"];
-
 $app = new \Silex\Application();
 $app['debug'] = true;
 

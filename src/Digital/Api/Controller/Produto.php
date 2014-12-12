@@ -13,8 +13,11 @@ $produto->get("/", function () use($app, $service) {
 	return $app->json($service->listar());
 });
 $produto->get("/{id}", function ($id) use($app, $service) {
-	// sua lógica para listar o produto de ID $id
-	return $app->json($service->listarPorId($id));
+	$produto = $service->listarPorId($id);
+	if (count($produto) == 0){
+		return $app->json('Produto não encontrado');
+	}
+	return $app->json($produto);
 });
 $produto->post("/", function (Request $request) use($app, $service) {
 	if ((empty($request->get('nome'))) || (empty($request->get('descricao'))) || (empty($request->get('categoria'))) || (empty($request->get('valor')))) {

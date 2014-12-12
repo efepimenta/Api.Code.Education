@@ -14,4 +14,3 @@ if ($uri != 'index') {
 }
 
 echo $twig->render('index.twig', $dados);
-
