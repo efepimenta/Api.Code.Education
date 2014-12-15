@@ -2,10 +2,27 @@
 
 namespace Digital\Entity;
 
-class Categoria
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="produtos")
+ */
+class Categoria implements PersistentInterface
 {
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue
+	 */
 	private $id;
+	/**
+	 * @ORM\Column(type="string",length=60)
+	 */
 	private $nome;
+	/**
+	 * @ORM\Column(type="string",length=250)
+	 */
 	private $descricao;
 
 	public function getId() {

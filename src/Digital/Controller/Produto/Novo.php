@@ -20,12 +20,14 @@ if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 	$produto = $validator->getProduto();
 	
 	$categoria = $cat->idPorDescricao($_POST['categoria'], true);
-	$produto->setCategoria($categoria['id']);
+	$produto->setId_categoria($categoria['id']);
 	
-	if ($service->inserir($produto)) {
+	$result = $service->persist($em, $produto);
+	if ($result) {
 		echo $twig->render("produto/novo.ok.twig", $dados);
 	}
 	else {
+		$dados['erros'] = $result;
 		echo $twig->render("produto/novo.erro.twig", $dados);
 	}
 }

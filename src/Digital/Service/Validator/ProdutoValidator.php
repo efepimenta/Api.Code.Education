@@ -95,14 +95,14 @@ class ProdutoValidator
 		}
 		$this->mensagemDeErro = 'OK';
 		
-		if (($acao === 'inserir') || ($acao === 'atualizar')) {
+		if (($acao !== 'listar')) {
 			$this->produto = new Produto();
-			if ($acao === 'atualizar') {
+			if ($acao !== 'inserir') {
 				$this->produto->setId($id);
 			}
 			$this->produto->setNome($nome);
 			$this->produto->setDescricao($descricao);
-			$this->produto->setCategoria($categoria);
+			$this->produto->setId_categoria($categoria);
 			$this->produto->setValor($valor);
 		}
 		return true;

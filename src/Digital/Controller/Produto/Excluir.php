@@ -1,6 +1,9 @@
 <?php
 use Digital\Service\ProdutoService;
 use Digital\Service\Validator\ProdutoValidator;
+use Digital\Service\CategoriaService;
+use Doctrine\DBAL\Types\VarDateTimeType;
+$cat = new CategoriaService($database);
 $service = new ProdutoService($database);
 
 if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
@@ -12,10 +15,15 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 		exit();
 	}
 	
-	if ($service->deletar($_POST['id'])) {
+	$produto = $validator->getProduto();
+	
+	// if ($service->deletar($_POST['id'])) {
+	$result = $service->remove($em, $produto);
+	if ($result) {
 		echo $twig->render("produto/excluir.ok.twig", $dados);
 	}
 	else {
+		$dados['erros'] = $result;
 		echo $twig->render("produto/excluir.erro.twig", $dados);
 	}
 }

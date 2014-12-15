@@ -4,7 +4,7 @@ use Digital\Service\LoginService;
 use Digital\Database;
 
 if (!isset($_POST['controle'])){
-	//chama o erro de login
+	//volta para a pagina inicial
 	header("Location:http://{$_SERVER['HTTP_HOST']}");
 }
 
@@ -20,6 +20,7 @@ if ($_POST['controle'] === 'entrar'){
 	//faz as coisas de sair
 	if ($loginService->logout()){
 		//manda pra pagina de logout ok
+		$dados['logado'] = false;
 		echo $twig->render('logout.ok.twig', $dados);
 	} else {
 		echo $twig->render('logout.erro.twig', $dados);

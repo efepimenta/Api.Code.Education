@@ -4,6 +4,8 @@ namespace Digital\Service;
 
 use Digital\Entity\Produto;
 use Digital\Database;
+use Doctrine\ORM\EntityManager;
+use Digital\Entity\PersistentInterface;
 
 class ProdutoService
 {
@@ -14,16 +16,49 @@ class ProdutoService
 		$this->database = $database;
 	
 	}
+
+	/**
+	 * Persiste um objeto PersistentInterface
+	 * 
+	 * @param EntityManager $em        	
+	 * @param PersistentInterface $entity        	
+	 * @return boolean
+	 */
+	public function persist(EntityManager $em, PersistentInterface $entity) {
+
+		return $this->database->persist($em, $entity);
 	
-	public function nextID(){
-		return $this->database->nextID('produtos');
+	}
+	
+	/**
+	 * Atualiza um objeto PersistentInterface
+	 *
+	 * @param EntityManager $em
+	 * @param PersistentInterface $entity
+	 * @return boolean
+	 */
+	public function merge(EntityManager $em, PersistentInterface $entity) {
+	
+		return $this->database->merge($em, $entity);
+	
+	}
+	
+	/**
+	 * Remove um objeto PersistentInterface
+	 *
+	 * @param EntityManager $em
+	 * @param PersistentInterface $entity
+	 * @return boolean
+	 */
+	public function remove(EntityManager $em, PersistentInterface $entity) {
+	
+		return $this->database->remove($em, $entity);
+	
 	}
 
-	public function atualizar(Produto $produto) {
+	public function nextID() {
 
-		$sql = "UPDATE produtos SET nome='{$produto->getNome()}',descricao='{$produto->getDescricao()}',codigo='0001',
-		id_categoria='{$produto->getCategoria()}',valor='{$produto->getValor()}' where id='{$produto->getId()}'";
-		return $this->database->exec($sql);
+		return $this->database->nextID('produtos');
 	
 	}
 
@@ -33,15 +68,29 @@ class ProdutoService
 	 * @param Produto $produto        	
 	 * @return boolean
 	 */
-	public function inserir(Produto $produto) {
+// 	public function atualizar(Produto $produto) {
 
-		$id = $this->database->nextID('produtos');
-		
-		$sql = "insert into produtos (id,codigo,nome,valor,descricao,id_categoria) values ({$id},'0001','{$produto->getNome()}',
-		'{$produto->getValor()}','{$produto->getDescricao()}','{$produto->getCategoria()}')";
-		return $this->database->exec($sql);
+// 		$sql = "UPDATE produtos SET nome='{$produto->getNome()}',descricao='{$produto->getDescricao()}',codigo='0001',
+// 		id_categoria='{$produto->getId_categoria()}',valor='{$produto->getValor()}' where id='{$produto->getId()}'";
+// 		return $this->database->exec($sql);
 	
-	}
+// 	}
+
+	/**
+	 * Insere um Produto
+	 *
+	 * @param Produto $produto        	
+	 * @return boolean
+	 */
+// 	public function inserir(Produto $produto) {
+
+// 		$id = $this->database->nextID('produtos');
+		
+// 		$sql = "insert into produtos (id,codigo,nome,valor,descricao,id_categoria) values ({$id},'0001','{$produto->getNome()}',
+// 		'{$produto->getValor()}','{$produto->getDescricao()}','{$produto->getId_categoria()}')";
+// 		return $this->database->exec($sql);
+	
+// 	}
 
 	/**
 	 * Remove um Produto
@@ -49,16 +98,16 @@ class ProdutoService
 	 * @param integer $id        	
 	 * @return boolean
 	 */
-	public function deletar($id) {
+// 	public function deletar($id) {
 
-		$sql = "DELETE FROM produtos WHERE id={$id}";
-		$result = $this->database->exec($sql);
-		if (!$result){
-			return false;
-		}
-		return $result;
+// 		$sql = "DELETE FROM produtos WHERE id={$id}";
+// 		$result = $this->database->exec($sql);
+// 		if (! $result) {
+// 			return false;
+// 		}
+// 		return $result;
 	
-	}
+// 	}
 
 	/**
 	 * Lista todos os Produtos
@@ -72,15 +121,15 @@ class ProdutoService
 		return $this->database->select($sql);
 	
 	}
-	
+
 	public function listarPorId($id) {
-	
+
 		$sql = "SELECT produtos.id, produtos.codigo, produtos.nome, produtos.descricao,
         produtos.valor, produtos.imagem, categorias.nome as cat_nome, categorias.descricao as cat_descricao
         FROM produtos
         inner join categorias on produtos.id_categoria = categorias.id where produtos.id = {$id}";
 		$result = $this->database->select($sql);
-		if (count($result) == 0){
+		if (count($result) == 0) {
 			return "Nenhum produto encontrado com o id {$id}";
 		}
 		return $result;

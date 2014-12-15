@@ -23,13 +23,15 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
 	$produto->setId($_POST['id']);
 	$produto->setNome($_POST['nome']);
 	$produto->setDescricao($_POST['descricao']);
-	$produto->setCategoria($categoria['id']);
+	$produto->setId_categoria($categoria['id']);
 	$produto->setValor($_POST['valor']);
 
-	if ($service->atualizar($produto)) {
+	$result = $service->merge($em, $produto);
+	if ($result) {
 		echo $twig->render("produto/editar.ok.twig", $dados);
 	}
 	else {
+		$dados['erros'] = $result;
 		echo $twig->render("produto/editar.erro.twig", $dados);
 	}
 }

@@ -1,13 +1,13 @@
 <?php
 use Digital\Service\ProdutoService;
-use Digital\Database;
-use Digital\Entity\Produto;
 use Symfony\Component\HttpFoundation\Request;
 use Digital\Service\Validator\ProdutoValidator;
 
+// require  __DIR__ . '/../../../bootstrap.php';
+
 $produto = $app['controllers_factory'];
 
-$service = new ProdutoService($database);
+$service = new ProdutoService($app['database']);
 $validator = new ProdutoValidator();
 
 $produto->get("/", function () use($app, $service) {
@@ -23,37 +23,43 @@ $produto->get("/{id}", function ($id) use($app, $service, $validator) {
 	return $app->json($produto);
 });
 
-$produto->post("/", function (Request $request) use($app, $service, $validator) {
+$produto->post("/", function (Request $request) use($app, $service, $validator,$em) {
 	
 	if (! $validator->validar('inserir', '', $request->get('nome'), $request->get('descricao'), $request->get('categoria'), $request->get('valor'))) {
 		return $app->json($validator->mensagemDeErro());
 	}
-	if ($service->inserir($validator->getProduto())) {
+// 	if ($service->inserir($validator->getProduto())) {
+	$return = $service->persist($em, $validator->getProduto());
+	if ($return) {
 		return $app->json('Produto inserido com sucesso');
 	}
-	return $app->json('Erro ao inserir produto');
+	return $app->json($return);
 });
-$produto->put("/{id}", function (Request $request, $id) use($app, $service, $validator) {
+$produto->put("/{id}", function (Request $request, $id) use($app, $service, $validator, $em) {
 	
 	if (! $validator->validar('atualizar', $id, $request->get('nome'), $request->get('descricao'), $request->get('categoria'), $request->get('valor'))) {
 		return $app->json($validator->mensagemDeErro());
 	}
-	if ($service->atualizar($validator->getProduto())) {
+// 	if ($service->atualizar($validator->getProduto())) {
+	$return = $service->merge($em, $validator->getProduto());
+	if ($return) {
 		return $app->json('Produto atualizado com sucesso');
 	}
-	return $app->json('Erro ao atualizar produto');
+	return $app->json('Erro ao atualizar produto ou produto não encontrado');
 });
-$produto->delete("/{id}", function (Request $request, $id) use($app, $service, $validator) {
+$produto->delete("/{id}", function (Request $request, $id) use($app, $service, $validator, $em) {
 	
 	if (! $validator->validar('deletar', $id)) {
 		return $app->json($validator->mensagemDeErro());
 	}
-	if ($service->deletar($id)) {
+// 	if ($service->deletar($id)) {
+	$return = $service->remove($em, $validator->getProduto());
+	if ($return) {
 		return $app->json('Produto excluido com sucesso');
 	} else {
 		return $app->json("Nenhum produto encontrado com o id {$id}");
 	}
-	return $app->json('Erro ao excluir produto');
+	return $app->json($return);
 });
 
 return $produto;

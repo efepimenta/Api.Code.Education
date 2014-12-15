@@ -1,10 +1,8 @@
 <?php
 
 use Digital\Database;
-require_once __DIR__ . '/../../src/bootstrap.php';
 
-$app = new \Silex\Application();
-$app['debug'] = true;
+require_once __DIR__ . '/../../src/bootstrap.php';
 
 $app->get('/', function (){
 	return 'Welcome to the jungle';

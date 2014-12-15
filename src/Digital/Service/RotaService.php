@@ -7,8 +7,16 @@ use Digital\Database;
 class RotaService
 {
 
+	/**
+	 * Reotrna a uri atual, com ou sem o .
+	 * php
+	 * 
+	 * @param bool $dotPHP        	
+	 * @return string
+	 */
 	function currentUri($dotPHP = false) {
 
+		$pagina = '';
 		$uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
 		$query_str = filter_input(INPUT_SERVER, 'QUERY_STRING');
 		if (isset($uri)) {
@@ -36,7 +44,7 @@ class RotaService
 	 * Verifica se a rota passada existe
 	 *
 	 * @param string $uri        	
-	 * @param Database $db        	
+	 * @param Database $database        	
 	 */
 	function routeExists($uri, Database $database) {
 

@@ -1,31 +1,51 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: fabio
- * Date: 09/12/14
- * Time: 13:40
- */
 namespace Digital\Entity;
 
-class Produto
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="produtos")
+ */
+class Produto implements PersistentInterface
 {
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue
+	 */
 	private $id;
+	/**
+	 * @ORM\Column(type="string",length=20)
+	 */
 	private $codigo;
+	/**
+	 * @ORM\Column(type="string",length=100)
+	 */
 	private $nome;
+	/**
+	 * @ORM\Column(type="text")
+	 */
 	private $descricao;
-	private $categoria;
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	private $id_categoria;
+	/**
+	 * @ORM\Column(type="decimal",precision=10, scale=2)
+	 */
 	private $valor;
 
-	public function getCategoria() {
+	public function getId_categoria() {
 
-		return $this->categoria;
+		return $this->id_categoria;
 	
 	}
 
-	public function setCategoria($categoria) {
+	public function setId_categoria($id_categoria) {
 
-		$this->categoria = $categoria;
+		$this->id_categoria = $id_categoria;
 	
 	}
 
