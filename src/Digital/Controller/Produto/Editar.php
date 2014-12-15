@@ -26,7 +26,7 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
 	$produto->setId_categoria($categoria['id']);
 	$produto->setValor($_POST['valor']);
 
-	$result = $service->merge($em, $produto);
+	$result = $service->update($em, $produto);
 	if ($result) {
 		echo $twig->render("produto/editar.ok.twig", $dados);
 	}

@@ -41,7 +41,7 @@ $produto->put("/{id}", function (Request $request, $id) use($app, $service, $val
 		return $app->json($validator->mensagemDeErro());
 	}
 // 	if ($service->atualizar($validator->getProduto())) {
-	$return = $service->merge($em, $validator->getProduto());
+	$return = $service->update($em, $validator->getProduto());
 	if ($return) {
 		return $app->json('Produto atualizado com sucesso');
 	}

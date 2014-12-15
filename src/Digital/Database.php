@@ -46,10 +46,15 @@ class Database
 	 * @param PersistentInterface $entity
 	 * @return boolean
 	 */
-	public function merge(EntityManager $em, PersistentInterface $entity) {
+	public function update(EntityManager $em, PersistentInterface $entity) {
 
 		try {
-			$em->merge($entity);
+			$up = $em->getReference(get_class($entity), $entity->getId());
+			$up->setNome($entity->getNome());
+			$up->setId_categoria($entity->getId_categoria());
+			$up->setDescricao($entity->getDescricao());
+			$up->setValor($entity->getValor());
+			$em->persist($up);
 			$em->flush();
 			return true;
 		}
@@ -69,8 +74,8 @@ class Database
 	public function remove(EntityManager $em, PersistentInterface $entity) {
 
 		try {
-			$rm = $em->find(get_class($entity), $entity->getId());
-			$em->remove($rm);
+			$rp = $em->getReference(get_class($entity), $entity->getId());
+			$em->remove($rp);
 			$em->flush();
 			return true;
 		}
@@ -78,6 +83,16 @@ class Database
 			return $e->getMessage();
 		}
 	
+	}
+	
+	public function findAll(EntityManager $em, PersistentInterface $entity){
+		$rp = $em->getRepository(get_class($entity));
+		return $rp->findAll();
+	}
+	
+	public function find(EntityManager $em, $id){
+		$rp = $em->getRepository(get_class($entity));
+		return $rp->find($id);
 	}
 
 	public function configureDriver() {

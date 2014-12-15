@@ -37,9 +37,9 @@ class ProdutoService
 	 * @param PersistentInterface $entity
 	 * @return boolean
 	 */
-	public function merge(EntityManager $em, PersistentInterface $entity) {
+	public function update(EntityManager $em, PersistentInterface $entity) {
 	
-		return $this->database->merge($em, $entity);
+		return $this->database->update($em, $entity);
 	
 	}
 	
