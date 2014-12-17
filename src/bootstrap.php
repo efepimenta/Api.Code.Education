@@ -12,6 +12,8 @@ Doctrine\Common\Cache\ArrayCache as Cache,
 Doctrine\Common\Annotations\AnnotationRegistry,
 Doctrine\Common\Annotations\AnnotationReader,
 Doctrine\Common\ClassLoader;
+use Digital\Service\ProdutoService;
+use Digital\Service\Validator\ProdutoValidator;
 
 if (empty(session_id())) {
 	session_start();
@@ -20,13 +22,6 @@ if (empty(session_id())) {
 require_once __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../src/settings.php';
 
-/*
- * configuracao do Silex
- */
-$app = new \Silex\Application();
-$app['debug'] = true;
-
-$app['database'] = new Database($driver);
 /* ----------------------------------------------------------------------- */
 /*
  * confituracao do twig
@@ -82,3 +77,16 @@ $em = EntityManager::create(
     $evm
 );
 /* ----------------------------------------------------------------------- */
+/*
+ * configuracao do Silex
+ */
+$app = new \Silex\Application();
+$app['debug'] = true;
+$app['em'] = $em;
+$app['database'] = new Database($driver);
+$app['service'] = function () use ($app) {
+	return new ProdutoService($app['database']);
+};
+$app['validator'] = function () {
+	return new ProdutoValidator();
+};
