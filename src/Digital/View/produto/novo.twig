@@ -4,20 +4,28 @@
 {% else %}
 
 <h1>Novo Produto</h1>
-<form action="{{ path() }}produto/novo" method="post">
-    <label>Nome: <input type="text" name="nome"></label><br>
-    <label>Descrição:<input type="text" name="descricao"></label><br>
 
-    <label>Categorias: <select name="categoria">
+<div class="row clearfix">
+<div class="col-md-5">
+<form role="form" action="{{ path() }}produto/novo" method="post">
+<div class="form-group">
+    <label>Nome: <input type="text" name="nome" class="form-control" size="80" maxlength="120"></label><br>
+    <label>Descrição:<input type="text" name="descricao" class="form-control" size="80" maxlength="120"></label><br>
+
+    <label>Categorias: <select name="categoria" class="form-control" >
         {% for cat in categorias %}
         <option>{{ cat.descricao }}</option>
         {% endfor %}
     </select></label><br>
 
-    <label>Valor:<input type="text" name="valor"></label>
+    <label>Valor:<input type="text" name="valor" class="form-control" size="10"></label><br>
     <button type="submit" class="btn btn-primary" {% if not logado %}disabled="disabled"{% endif %}>Salvar</button>
     <input type="hidden" name="acao" value="salvar">
+</div>
 </form>
+</div>
+</div>
+
 <br>
 
 {% endif %}

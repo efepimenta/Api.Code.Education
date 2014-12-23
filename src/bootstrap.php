@@ -40,7 +40,7 @@ $loginService = new LoginService();
 $database = new Database($driver);
 $rotaService = new RotaService();
 $menuService = new MenuService($database);
-$dados = ['menu' => $menuService->montaMenu($database),'ano' => date('Y'),'logado' => $loginService->logado(),'uri' => $rotaService->currentUri()];
+$dados = ['title'=>'Doctrine Rules', 'menu' => $menuService->montaMenu($database),'ano' => date('Y'),'logado' => $loginService->logado(),'uri' => $rotaService->currentUri()];
 /* ----------------------------------------------------------------------- */
 /* 
  * configuração do doctrine 

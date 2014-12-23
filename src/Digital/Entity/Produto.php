@@ -5,7 +5,7 @@ namespace Digital\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Digital\Entity\ProdutoRepository")
  * @ORM\Table(name="produtos")
  */
 class Produto implements PersistentInterface
@@ -36,6 +36,10 @@ class Produto implements PersistentInterface
 	 * @ORM\Column(type="decimal",precision=10, scale=2)
 	 */
 	private $valor;
+	/**
+	 * @ORM\Column(type="string",length=100)
+	 */
+	private $imagem;
 
 	public function getId_categoria() {
 
@@ -108,5 +112,19 @@ class Produto implements PersistentInterface
 		$this->valor = $valor;
 	
 	}
+
+	public function getImagem() {
+
+		return $this->imagem;
+	
+	}
+
+	public function setImagem($imagem) {
+
+		$this->imagem = $imagem;
+		return $this;
+	
+	}
+	
 
 } 

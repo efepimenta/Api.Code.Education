@@ -1,58 +1,29 @@
 <?php
 
+/*
+ * esse é o Model Produto
+ */
+
 namespace Digital\Service;
 
 use Digital\Entity\Produto;
 use Digital\Database;
 use Doctrine\ORM\EntityManager;
 use Digital\Entity\PersistentInterface;
+use Digital\DatabaseDoctrine;
 
-class ProdutoService
+/*
+ * as funcoes da classe Database serao removidas....
+ */
+class ProdutoService extends DatabaseDoctrine
 {
 	private $database;
 
 	public function __construct(Database $database) {
 
 		$this->database = $database;
-	
-	}
-
-	/**
-	 * Persiste um objeto PersistentInterface
-	 * 
-	 * @param EntityManager $em        	
-	 * @param PersistentInterface $entity        	
-	 * @return boolean
-	 */
-	public function persist(EntityManager $em, PersistentInterface $entity) {
-
-		return $this->database->persist($em, $entity);
-	
-	}
-	
-	/**
-	 * Atualiza um objeto PersistentInterface
-	 *
-	 * @param EntityManager $em
-	 * @param PersistentInterface $entity
-	 * @return boolean
-	 */
-	public function update(EntityManager $em, PersistentInterface $entity) {
-	
-		return $this->database->update($em, $entity);
-	
-	}
-	
-	/**
-	 * Remove um objeto PersistentInterface
-	 *
-	 * @param EntityManager $em
-	 * @param PersistentInterface $entity
-	 * @return boolean
-	 */
-	public function remove(EntityManager $em, PersistentInterface $entity) {
-	
-		return $this->database->remove($em, $entity);
+		/* classe que o doctrine vai mapear */
+		parent::setClass('Digital\Entity\Produto');
 	
 	}
 
@@ -61,53 +32,6 @@ class ProdutoService
 		return $this->database->nextID('produtos');
 	
 	}
-
-	/**
-	 * Atualiza um Produto
-	 *
-	 * @param Produto $produto        	
-	 * @return boolean
-	 */
-// 	public function atualizar(Produto $produto) {
-
-// 		$sql = "UPDATE produtos SET nome='{$produto->getNome()}',descricao='{$produto->getDescricao()}',codigo='0001',
-// 		id_categoria='{$produto->getId_categoria()}',valor='{$produto->getValor()}' where id='{$produto->getId()}'";
-// 		return $this->database->exec($sql);
-	
-// 	}
-
-	/**
-	 * Insere um Produto
-	 *
-	 * @param Produto $produto        	
-	 * @return boolean
-	 */
-// 	public function inserir(Produto $produto) {
-
-// 		$id = $this->database->nextID('produtos');
-		
-// 		$sql = "insert into produtos (id,codigo,nome,valor,descricao,id_categoria) values ({$id},'0001','{$produto->getNome()}',
-// 		'{$produto->getValor()}','{$produto->getDescricao()}','{$produto->getId_categoria()}')";
-// 		return $this->database->exec($sql);
-	
-// 	}
-
-	/**
-	 * Remove um Produto
-	 *
-	 * @param integer $id        	
-	 * @return boolean
-	 */
-// 	public function deletar($id) {
-
-// 		$sql = "DELETE FROM produtos WHERE id={$id}";
-// 		$result = $this->database->exec($sql);
-// 		if (! $result) {
-// 			return false;
-// 		}
-// 		return $result;
-	
-// 	}
 
 	/**
 	 * Lista todos os Produtos

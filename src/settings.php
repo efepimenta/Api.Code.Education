@@ -1,4 +1,7 @@
 <?php
+/* quantidade de registros retornados por padrao */
+const POR_PAGINA = 10;
+const BOTOES = 5;
 
 ini_set('display_errors', true);
 error_reporting(E_ALL | E_STRICT);
