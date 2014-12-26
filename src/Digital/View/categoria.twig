@@ -1,0 +1,24 @@
+{% include 'header.twig' %}
+{% if not logado %}
+    <h4>Favor logar para fazer alterações</h4>
+{% else %}
+<h1>Lista de Categorias</h1>
+<table class="table table-bordered table-striped">
+    <tr>
+    	<th>Id</th>
+        <th>Nome</th>
+        <th>Descricao</th>
+    </tr>
+
+    {% for cat in categorias %}
+        <tr>
+        	<td>{{ cat.id }}</td>
+            <td>{{ cat.nome }}</td>
+            <td>{{ cat.descricao }}</td>
+            
+        </tr>
+    {% endfor %}
+</table>
+<br>
+{% endif %}
+{% include 'footer.twig' %}

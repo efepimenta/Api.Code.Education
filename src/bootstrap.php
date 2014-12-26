@@ -14,6 +14,7 @@ Doctrine\Common\Annotations\AnnotationReader,
 Doctrine\Common\ClassLoader;
 use Digital\Service\ProdutoService;
 use Digital\Service\Validator\ProdutoValidator;
+use Digital\Service\Validator\CategoriaValidator;
 use Digital\Service\CategoriaService;
 
 if (empty(session_id())) {
@@ -85,12 +86,15 @@ $app = new \Silex\Application();
 $app['debug'] = true;
 $app['em'] = $em;
 $app['database'] = new Database($driver);
-$app['service'] = function () use ($app) {
+$app['produtoservice'] = function () use ($app) {
 	return new ProdutoService($app['database']);
 };
-$app['validator'] = function () {
+$app['produtovalidator'] = function () {
 	return new ProdutoValidator();
 };
-$app['categoria'] = function () use ($app){
+$app['categoriaservice'] = function () use ($app){
 	return new CategoriaService($app['database']);
+};
+$app['categoriavalidator'] = function () {
+	return new CategoriaValidator();
 };

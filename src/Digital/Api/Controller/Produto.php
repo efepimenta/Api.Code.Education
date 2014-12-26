@@ -3,17 +3,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 $produto = $app['controllers_factory'];
 
-$service = $app['service'];
-$validator = $app['validator'];
+$service = $app['produtoservice'];
+$validator = $app['produtovalidator'];
 
 $produto->get("/", function () use($app, $service) {
 	
 	foreach ( $service->findAll($app['em']) as $res ) {
-		$result[]['nome'] = $res->getNome();
-		$result[]['descricao'] = $res->getDescricao();
-		$result[]['valor'] = $res->getValor();
+		$result[$res->getId()]['nome'] = $res->getNome();
+		$result[$res->getId()]['descricao'] = $res->getDescricao();
+		$result[$res->getId()]['valor'] = $res->getValor();
 		$cat = $res->getId_categoria();
-		$result[]['categoria'] = "ID: {$cat->getId()} - Desc: {$cat->getDescricao()}";
+		$result[$res->getId()]['categoria'] = "ID: {$cat->getId()} - Desc: {$cat->getDescricao()}";
 	}
 	
 	return $app->json($result);

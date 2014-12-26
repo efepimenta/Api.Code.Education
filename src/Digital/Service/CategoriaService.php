@@ -6,6 +6,7 @@ use Digital\Entity\Categoria;
 use Digital\Database;
 use Digital\DatabaseDoctrine;
 use Doctrine\ORM\EntityManager;
+use Digital\Entity\PersistentInterface;
 
 class CategoriaService extends DatabaseDoctrine
 {
@@ -25,7 +26,24 @@ class CategoriaService extends DatabaseDoctrine
 		$rp = $em->getRepository($this->class);
 		return $rp->idPorDescricao($descricao);
 	}
-
+	
+	public function update(EntityManager $em, PersistentInterface $entity) {
+	
+		try {
+			$up = $em->getReference($this->class, $entity->getId());
+			$up->setNome($entity->getNome());
+			$up->setDescricao($entity->getDescricao());
+			$em->persist($up);
+			$em->flush();
+			return true;
+		}
+		catch ( Exception $e ) {
+			return $e->getMessage();
+		}
+	
+	}
+	
+	
 	/**
 	 * Atualiza uma Categoria
 	 * 
