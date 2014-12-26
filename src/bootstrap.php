@@ -14,6 +14,7 @@ Doctrine\Common\Annotations\AnnotationReader,
 Doctrine\Common\ClassLoader;
 use Digital\Service\ProdutoService;
 use Digital\Service\Validator\ProdutoValidator;
+use Digital\Service\CategoriaService;
 
 if (empty(session_id())) {
 	session_start();
@@ -89,4 +90,7 @@ $app['service'] = function () use ($app) {
 };
 $app['validator'] = function () {
 	return new ProdutoValidator();
+};
+$app['categoria'] = function () use ($app){
+	return new CategoriaService($app['database']);
 };

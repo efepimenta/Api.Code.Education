@@ -10,7 +10,7 @@ $cat = new CategoriaService($database);
 if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 	
 	$validator = new ProdutoValidator();
-	if (! $validator->validar('inserir', '', $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor']) ){
+	if (! $validator->validar($em,'inserir', '', $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor']) ){
 		$dados['erros'] = $validator->mensagemDeErro();
 		echo $twig->render('produto/novo.incompleto.twig', $dados);
 		exit();
@@ -19,8 +19,11 @@ if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 	$service = new ProdutoService($database);
 	$produto = $validator->getProduto();
 	
-	$categoria = $cat->idPorDescricao($_POST['categoria'], true);
-	$produto->setId_categoria($categoria['id']);
+	$id = explode('-',$_POST['categoria']);
+	
+	$categoria = $cat->idPorDescricao($em, trim($id[1]));
+
+	$produto->setId_categoria($categoria[0]);
 	
 	$result = $service->persist($em, $produto);
 	if ($result) {
@@ -32,7 +35,7 @@ if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 	}
 }
 else {
-	$dados['categorias'] = $cat->listar();
+	$dados['categorias'] = $cat->findAll($em);
 	echo $twig->render("produto/novo.twig", $dados);
 	unset($dados['categorias']);
 }

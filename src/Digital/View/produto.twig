@@ -69,6 +69,7 @@ function buscavazia(){
 
 {# montagem do paginator #}
 {% if paginator.ativo %}
+{{ paginator.atual }}
 <div class="row clearfix">
 	<div class="col-lg-9"></div>
 	<div class="col-lg-3">
@@ -84,7 +85,7 @@ function buscavazia(){
 				{% endif %}
 				
 				{# monta os botoes do paginador #}
-				{% for b in 1 .. paginator.botoes %}
+				{% for b in 1 .. paginator.botoesTotais %}
 					{% if (paginator.atual + b) <= paginator.botoesTotais + 1 %}
 						<li {% if b == paginator.atual %} class="active" {% endif %}><a href="produto?next={{ paginator.atual + b -1 }}
 							&campo={{ paginator.campo }}

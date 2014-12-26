@@ -14,7 +14,7 @@
 
     <label>Categorias: <select name="categoria" class="form-control" >
         {% for cat in categorias %}
-        <option>{{ cat.descricao }}</option>
+        <option>{{ cat.id }} - {{ cat.descricao }}</option>
         {% endfor %}
     </select></label><br>
 

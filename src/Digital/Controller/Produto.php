@@ -30,8 +30,24 @@ if (isset($_GET['next'])) {
 		$paginator->setAtual($_GET['next']);
 		$paginator->setProximo($paginator->getQuantidade() * ($paginator->getAtual() -1));
 	}
-
+	
 	$result = $service->buscaPersonalizada($em, $paginator);
+	
+	/* define a quantidade de botoes a serem usados no paginator */
+	if ($paginator->getResultados() % $paginator->getQuantidade() != 0) {
+		$botoes = intval($paginator->getResultados() / $paginator->getQuantidade()) + 1;
+	}
+	else {
+		$botoes = intval($paginator->getResultados() / $paginator->getQuantidade());
+	}
+	if ($botoes == 0) {
+		$botoes = 1;
+	}
+	$paginator->setBotoesTotais($botoes);
+	if ($botoes > BOTOES) {
+		$botoes = BOTOES;
+	}
+	$paginator->setBotoes($botoes);
 }
 else {
 	$result = $service->findAll($em);
@@ -39,21 +55,7 @@ else {
 	$paginator->setResultados($service->getRecordCount($em)[0][1]);
 	$paginator->setAtual(1);
 }
-/* define a quantidade de botoes a serem usados no paginator */
-if ($paginator->getResultados() % $paginator->getQuantidade() == 1) {
-	$botoes = intval($paginator->getResultados() / $paginator->getQuantidade()) + 1;
-}
-else {
-	$botoes = intval($paginator->getResultados() / $paginator->getQuantidade());
-}
-if ($botoes == 0) {
-	$botoes = 1;
-}
-$paginator->setBotoesTotais($botoes);
-if ($botoes > BOTOES) {
-	$botoes = BOTOES;
-}
-$paginator->setBotoes($botoes);
+
 $dados['produtos'] = $result;
 $dados['paginator'] = $paginator;
 

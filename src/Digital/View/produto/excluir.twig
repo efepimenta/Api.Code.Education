@@ -16,7 +16,7 @@
         <tr>
             <td>{{ produto.nome }}</td>
             <td>{{ produto.descricao }}</td>
-            <td>{{ produto.cat_descricao }}</td>
+            <td>ID: {{produto.id_categoria.id}} - Desc: {{ produto.id_categoria.descricao }}</td>
             <td>{{ produto.valor }}</td>
             <td>
                 <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-danger btn-xs"

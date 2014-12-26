@@ -11,11 +11,12 @@ use Digital\Entity\PersistentInterface;
  */
 abstract class DatabaseDoctrine
 {
-	
 	private $class;
-	
-	protected function setClass($classname){
+
+	protected function setClass($classname) {
+
 		$this->class = $classname;
+	
 	}
 
 	/**
@@ -29,31 +30,6 @@ abstract class DatabaseDoctrine
 
 		try {
 			$em->persist($entity);
-			$em->flush();
-			return true;
-		}
-		catch ( Exception $e ) {
-			return $e->getMessage();
-		}
-	
-	}
-
-	/**
-	 * Atualizar um objeto usando o Doctrine
-	 *
-	 * @param EntityManager $em        	
-	 * @param PersistentInterface $entity        	
-	 * @return boolean
-	 */
-	public function update(EntityManager $em, PersistentInterface $entity) {
-
-		try {
-			$up = $em->getReference($this->class, $entity->getId());
-			$up->setNome($entity->getNome());
-			$up->setId_categoria($entity->getId_categoria());
-			$up->setDescricao($entity->getDescricao());
-			$up->setValor($entity->getValor());
-			$em->persist($up);
 			$em->flush();
 			return true;
 		}
@@ -85,34 +61,25 @@ abstract class DatabaseDoctrine
 	}
 
 	/**
-	 * Faz uma busca personalizada baseada em critérios pré-definidos
+	 * Retorna a quantidade de registros encontrados na tabela
 	 * 
 	 * @param EntityManager $em        	
-	 * @param array $criterio        	
 	 */
-	public function buscaPersonalizada(EntityManager $em, Paginator $paginator) {
+	public function getRecordCount(EntityManager $em) {
 
 		$rp = $em->getRepository($this->class);
-		return $rp->buscaPersonalizada($em, $paginator);
-	
-	}
-	
-	/**
-	 * Retorna a quantidade de registros encontrados na tabela
-	 * @param EntityManager $em
-	 */
-	public function getRecordCount(EntityManager $em){
-		$rp = $em->getRepository($this->class);
 		return $rp->getRecordCount();
+	
 	}
 
 	/**
 	 * Reorna todos os registros da tabela Produtos
-	 * 
+	 *
 	 * @param EntityManager $em        	
 	 * @return multitype:
 	 */
 	public function findAll(EntityManager $em) {
+
 		$rp = $em->getRepository($this->class);
 		return $rp->findAll();
 	
@@ -120,7 +87,7 @@ abstract class DatabaseDoctrine
 
 	/**
 	 * Retorna um registro da tabela Produtos cujo id seja informado
-	 * 
+	 *
 	 * @param EntityManager $em        	
 	 * @param unknown $id        	
 	 * @return Ambigous <object, NULL>

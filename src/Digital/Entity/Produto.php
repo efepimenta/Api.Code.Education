@@ -29,7 +29,8 @@ class Produto implements PersistentInterface
 	 */
 	private $descricao;
 	/**
-	 * @ORM\Column(type="integer")
+	 * @ORM\OneToOne(targetEntity="Digital\Entity\Categoria")
+	 * @ORM\JoinColumn(name="id_categoria", referencedColumnName="id")
 	 */
 	private $id_categoria;
 	/**
@@ -125,6 +126,5 @@ class Produto implements PersistentInterface
 		return $this;
 	
 	}
-	
 
 } 

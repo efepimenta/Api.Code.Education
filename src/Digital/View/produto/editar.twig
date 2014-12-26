@@ -16,7 +16,7 @@
         <tr>
             <td>{{ produto.nome }}</td>
             <td>{{ produto.descricao }}</td>
-            <td>{{ produto.cat_descricao }}</td>
+            <td>ID: {{produto.id_categoria.id}} - Desc: {{ produto.id_categoria.descricao }}</td>
             <td>{{ produto.valor }}</td>
             <td>
                 <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-primary btn-xs"
@@ -44,7 +44,7 @@
                                                         value="{{ produto.descricao }}"></label><br>
                                 <label>Categorias: <select name="categoria">
                                         {% for cat in categorias %}
-                                            <option>{{ cat.descricao }}</option>
+                                            <option {% if produto.id_categoria.descricao == cat.descricao %}selected="selected" {% endif %}>{{ cat.descricao }}</option>
                                         {% endfor %}
                                     </select></label><br>
                                 <label>Valor:<input type="text" name="valor" value="{{ produto.valor }}"></label>

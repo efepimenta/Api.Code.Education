@@ -5,8 +5,8 @@ namespace Digital\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="produtos")
+ * @ORM\Entity(repositoryClass="Digital\Entity\CategoriaRepository")
+ * @ORM\Table(name="categorias")
  */
 class Categoria implements PersistentInterface
 {

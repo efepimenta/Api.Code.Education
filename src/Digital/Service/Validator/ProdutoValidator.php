@@ -3,6 +3,8 @@
 namespace Digital\Service\Validator;
 
 use Digital\Entity\Produto;
+use Digital\Service\CategoriaService;
+use Doctrine\ORM\EntityManager;
 
 class ProdutoValidator
 {
@@ -15,7 +17,7 @@ class ProdutoValidator
 	private $valor;
 	private $erros;
 
-	public function validar($acao, $id = '', $nome = '', $descricao = '', $categoria = '', $valor = '') {
+	public function validar(EntityManager $em, $acao, $id = '', $nome = '', $descricao = '', $categoria = '', $valor = '') {
 
 		$falta = '';
 		$this->erros = false;
@@ -97,13 +99,19 @@ class ProdutoValidator
 		
 		if (($acao !== 'listar')) {
 			$this->produto = new Produto();
+			$catObj = new CategoriaService();
 			if ($acao !== 'inserir') {
 				$this->produto->setId($id);
 			}
 			$this->produto->setNome($nome);
 			$this->produto->setDescricao($descricao);
-			$this->produto->setId_categoria($categoria);
+			$cat = $catObj->find($em,$categoria);
+			$this->produto->setId_categoria($cat);
 			$this->produto->setValor($valor);
+			if (!isset($this->produto)){
+				$this->mensagemDeErro = 'Produto não encontrado';
+				return false;
+			}
 		}
 		return true;
 	

@@ -3,13 +3,13 @@ use Digital\Service\ProdutoService;
 use Digital\Service\Validator\ProdutoValidator;
 use Digital\Service\CategoriaService;
 use Doctrine\DBAL\Types\VarDateTimeType;
-$cat = new CategoriaService($database);
+
 $service = new ProdutoService($database);
 
 if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 	
 	$validator = new ProdutoValidator();
-	if (! $validator->validar('deletar', $_POST['id'])) {
+	if (! $validator->validar($em,'deletar', $_POST['id'])) {
 		$dados['erros'] = $validator->mensagemDeErro();
 		echo $twig->render('produto/excluir.incompleto.twig', $dados);
 		exit();
@@ -28,7 +28,7 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 	}
 }
 else {
-	$dados['produtos'] = $service->listar();
+	$dados['produtos'] = $service->findAll($em); //doctrine FAIO
 	echo $twig->render("produto/excluir.twig", $dados);
 	unset($dados['produtos']);
 }
