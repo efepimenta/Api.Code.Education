@@ -1,7 +1,5 @@
 <?php
 
-use Digital\Database;
-
 require_once __DIR__ . '/../../src/bootstrap.php';
 
 $app->get('/', function (){

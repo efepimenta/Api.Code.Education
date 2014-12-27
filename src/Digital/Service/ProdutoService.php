@@ -67,38 +67,5 @@ class ProdutoService extends DatabaseDoctrine
 		return $rp->buscaPersonalizada($em, $paginator);
 	
 	}
-	
-// 	public function nextID() {
-
-// 		return $this->database->nextID('produtos');
-	
-// 	}
-
-// 	/**
-// 	 * Lista todos os Produtos
-// 	 */
-// 	public function listar() {
-
-// 		$sql = 'SELECT produtos.id, produtos.codigo, produtos.nome, produtos.descricao,
-//         produtos.valor, produtos.imagem, categorias.nome as cat_nome, categorias.descricao as cat_descricao
-//         FROM produtos
-//         inner join categorias on produtos.id_categoria = categorias.id';
-// 		return $this->database->select($sql);
-	
-// 	}
-
-	public function listarPorId($id) {
-
-		$sql = "SELECT produtos.id, produtos.codigo, produtos.nome, produtos.descricao,
-        produtos.valor, produtos.imagem, categorias.nome as cat_nome, categorias.descricao as cat_descricao
-        FROM produtos
-        inner join categorias on produtos.id_categoria = categorias.id where produtos.id = {$id}";
-		$result = $this->database->select($sql);
-		if (count($result) == 0) {
-			return "Nenhum produto encontrado com o id {$id}";
-		}
-		return $result;
-	
-	}
 
 }

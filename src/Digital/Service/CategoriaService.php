@@ -50,12 +50,12 @@ class CategoriaService extends DatabaseDoctrine
 	 * @param Categoria $categoria        	
 	 * @return boolean
 	 */
-	public function atualizar(Categoria $categoria) {
+// 	public function atualizar(Categoria $categoria) {
 
-		$sql = "UPDATE categorias SET nome='{$categoria->getNome()}',descricao='{$categoria->getDescricao()}'";
-		return $this->database->exec($sql);
+// 		$sql = "UPDATE categorias SET nome='{$categoria->getNome()}',descricao='{$categoria->getDescricao()}'";
+// 		return $this->database->exec($sql);
 	
-	}
+// 	}
 
 	/**
 	 * Insere uma nova Categoria
@@ -63,15 +63,15 @@ class CategoriaService extends DatabaseDoctrine
 	 * @param Categoria $categoria        	
 	 * @return boolean
 	 */
-	public function inserir(Categoria $categoria) {
+// 	public function inserir(Categoria $categoria) {
 
-		$id = $this->database->nextID('categorias');
+// 		$id = $this->database->nextID('categorias');
 		
-		$sql = "insert into categorias (id,nome,valor,descricao,id_categoria) values ({$id},'{$categoria->getNome()}',
-		'{$categoria->getDescricao()}')";
-		return $this->database->exec($sql);
+// 		$sql = "insert into categorias (id,nome,valor,descricao,id_categoria) values ({$id},'{$categoria->getNome()}',
+// 		'{$categoria->getDescricao()}')";
+// 		return $this->database->exec($sql);
 	
-	}
+// 	}
 
 	/**
 	 * Remove uma Categoria
@@ -79,22 +79,22 @@ class CategoriaService extends DatabaseDoctrine
 	 * @param unknown $id        	
 	 * @return boolean
 	 */
-	public function deletar($id) {
+// 	public function deletar($id) {
 
-		$sql = "DELETE FROM categorias WHERE id={$id}";
-		return $this->database->exec($sql);
+// 		$sql = "DELETE FROM categorias WHERE id={$id}";
+// 		return $this->database->exec($sql);
 	
-	}
+// 	}
 
 	/**
 	 * Lista todas as Categorias (id, nome, descricao)
 	 */
-	public function listar() {
+// 	public function listar() {
 
-		$sql = 'select id, nome, descricao from categorias';
-		return $this->database->select($sql);
+// 		$sql = 'select id, nome, descricao from categorias';
+// 		return $this->database->select($sql);
 	
-	}
+// 	}
 
 // 	/**
 // 	 * Retorna o ID de acordo com a descrição da Categoria

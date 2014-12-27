@@ -85,15 +85,15 @@ $em = EntityManager::create(
 $app = new \Silex\Application();
 $app['debug'] = true;
 $app['em'] = $em;
-$app['database'] = new Database($driver);
+
 $app['produtoservice'] = function () use ($app) {
-	return new ProdutoService($app['database']);
+	return new ProdutoService();
 };
 $app['produtovalidator'] = function () {
 	return new ProdutoValidator();
 };
 $app['categoriaservice'] = function () use ($app){
-	return new CategoriaService($app['database']);
+	return new CategoriaService();
 };
 $app['categoriavalidator'] = function () {
 	return new CategoriaValidator();

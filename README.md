@@ -10,4 +10,6 @@ estou melhorando o paginador (vi que o doctrine tem um mas nao usei), ja que pod
 
 em breve ajustarei a parte visual, ja que tambem existem bugs.  
 
-devo estar criando um sistema de bugs...
+devo estar criando um sistema de bugs...  
+
+obs: alguns services ainda usam a PDO, mas ja ja eu removo  
