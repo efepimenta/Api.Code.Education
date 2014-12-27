@@ -2,7 +2,7 @@
 use Digital\Service\CategoriaService;
 use Digital\Service\Validator\CategoriaValidator;
 
-$service = new CategoriaService($database);
+$service = new CategoriaService();
 
 if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 	
@@ -16,6 +16,7 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 	$categoria = $validator->getCategoria();
 	
 	// if ($service->deletar($_POST['id'])) {
+	
 	$result = $service->remove($em, $categoria);
 	if ($result) {
 		echo $twig->render("categoria/excluir.ok.twig", $dados);

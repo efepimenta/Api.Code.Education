@@ -1,7 +1,4 @@
 {% include 'header.twig' %}
-{% if not logado %}
-    <h4>Favor logar para fazer alterações</h4>
-{% else %}
 <h1>Lista de Categorias</h1>
 <table class="table table-bordered table-striped">
     <tr>
@@ -20,5 +17,4 @@
     {% endfor %}
 </table>
 <br>
-{% endif %}
 {% include 'footer.twig' %}

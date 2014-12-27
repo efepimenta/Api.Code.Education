@@ -18,5 +18,16 @@
     {{ path() }}api/produto/ID -> usar PUT -> (nome=?, descricao=?, categoria=?, valor=?) (usar x-www-form-urlencoded)
     <b>Excluir um produto:</b>
     {{ path() }}api/produto/ID -> usar DELETE
+    
+    <b>Listar todas as categorias:</b>
+    {{ path() }}api/categoria
+    <b>Listar uma categoria:</b>
+    {{ path() }}api/categoria/ID
+    <b>Inserir uma categoria:</b>
+    {{ path() }}api/categoria/ -> usar POST -> (nome=?, descricao=?)
+    <b>Alterar uma categoria</b>
+    {{ path() }}api/categoria/ID -> usar PUT -> (nome=?, descricao=?) (usar x-www-form-urlencoded)
+    <b>Excluir uma categoria:</b>
+    {{ path() }}api/categoria/ID -> usar DELETE
 </pre>
 {% include 'footer.twig' %}

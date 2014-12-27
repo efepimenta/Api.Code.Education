@@ -48,21 +48,22 @@ abstract class DatabaseDoctrine
 	 */
 	public function remove(EntityManager $em, PersistentInterface $entity) {
 
+		$rp = $em->getReference($this->class, $entity->getId());
+		$em->remove($rp);
 		try {
-			$rp = $em->getReference($this->class, $entity->getId());
-			$em->remove($rp);
 			$em->flush();
 			return true;
 		}
 		catch ( Exception $e ) {
-			return $e->getMessage();
+			return 'saiu' . $e->getMessage();
 		}
+		return false;
 	
 	}
 
 	/**
 	 * Retorna a quantidade de registros encontrados na tabela
-	 * 
+	 *
 	 * @param EntityManager $em        	
 	 */
 	public function getRecordCount(EntityManager $em) {

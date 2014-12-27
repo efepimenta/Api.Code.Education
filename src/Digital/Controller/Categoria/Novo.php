@@ -3,7 +3,7 @@ use Digital\Database;
 use Digital\Service\CategoriaService;
 use Digital\Service\Validator\CategoriaValidator;
 
-$cat = new CategoriaService($database);
+$cat = new CategoriaService();
 
 if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 	

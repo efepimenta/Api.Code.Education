@@ -5,7 +5,7 @@ use Digital\Entity\Produto;
 use Digital\Service\CategoriaService;
 use Digital\Service\Validator\ProdutoValidator;
 
-$cat = new CategoriaService($database);
+$cat = new CategoriaService();
 
 if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 	

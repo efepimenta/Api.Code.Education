@@ -4,7 +4,7 @@ use Digital\Service\CategoriaService;
 use Digital\Entity\Produto;
 use Digital\Service\Validator\CategoriaValidator;
 
-$service = new CategoriaService($database);
+$service = new CategoriaService();
 
 if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
 

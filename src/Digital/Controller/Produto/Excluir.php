@@ -4,7 +4,7 @@ use Digital\Service\Validator\ProdutoValidator;
 use Digital\Service\CategoriaService;
 use Doctrine\DBAL\Types\VarDateTimeType;
 
-$service = new ProdutoService($database);
+$service = new ProdutoService();
 
 if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 	

@@ -38,7 +38,7 @@ $categoria->post("/", function (Request $request) use($app, $service, $validator
 	if (! $validator->validar($app['em'], 'inserir', '', $request->get('nome'), $request->get('descricao'))) {
 		return $app->json($validator->mensagemDeErro());
 	}
-	// if ($service->inserir($validator->getProduto())) {
+
 	$return = $service->persist($app['em'], $validator->getCategoria());
 	if ($return) {
 		return $app->json('Categoria inserida com sucesso');
@@ -51,7 +51,7 @@ $categoria->put("/{id}", function (Request $request, $id) use($app, $service, $v
 	if (! $validator->validar($app['em'], 'atualizar', $id, $request->get('nome'), $request->get('descricao'))) {
 		return $app->json($validator->mensagemDeErro());
 	}
-	// if ($service->atualizar($validator->getProduto())) {
+	
 	$return = $service->update($app['em'], $validator->getCategoria());
 	if ($return) {
 		return $app->json('Categoria atualizada com sucesso');
@@ -64,7 +64,7 @@ $categoria->delete("/{id}", function (Request $request, $id) use($app, $service,
 	if (! $validator->validar($app['em'], 'deletar', $id)) {
 		return $app->json($validator->mensagemDeErro());
 	}
-	// if ($service->deletar($id)) {
+
 	$return = $service->remove($app['em'], $validator->getCategoria());
 	if ($return) {
 		return $app->json('Categoria excluida com sucesso');

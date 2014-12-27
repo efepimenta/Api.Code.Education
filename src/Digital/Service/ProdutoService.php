@@ -18,12 +18,10 @@ use Digital\Paginator;
  */
 class ProdutoService extends DatabaseDoctrine
 {
-	private $database;
 	private $class;
 
-	public function __construct(Database $database) {
+	public function __construct() {
 
-		$this->database = $database;
 		/* classe que o doctrine vai mapear */
 		$this->class = 'Digital\Entity\Produto';
 		parent::setClass($this->class);

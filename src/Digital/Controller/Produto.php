@@ -6,7 +6,7 @@ use Digital\Service\ProdutoService;
 use Digital\Database;
 use Digital\Paginator;
 
-$service = new ProdutoService(new Database($driver)); /* classe database sera removida */
+$service = new ProdutoService(); /* classe database sera removida */
 
 $paginator = new Paginator();
 

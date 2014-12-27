@@ -5,7 +5,7 @@
 use Digital\Service\CategoriaService;
 use Digital\Database;
 
-$categoria = new CategoriaService(new Database($driver)); /* classe database sera removida */
+$categoria = new CategoriaService(); /* classe database sera removida */
 
 $result = $categoria->findAll($em);
 
