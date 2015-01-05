@@ -13,3 +13,5 @@ em breve ajustarei a parte visual, ja que tambem existem bugs.
 devo estar criando um sistema de bugs...  
 
 obs: alguns services ainda usam a PDO, mas ja ja eu removo  
+
+A categoria informada via api deve ser inteiro, nao string

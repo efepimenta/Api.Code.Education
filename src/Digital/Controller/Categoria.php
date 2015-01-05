@@ -3,7 +3,6 @@
  * esse é o Controller Produto
  */
 use Digital\Service\CategoriaService;
-use Digital\Database;
 
 $categoria = new CategoriaService(); /* classe database sera removida */
 

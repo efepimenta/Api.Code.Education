@@ -2,13 +2,14 @@
 /*
  * esse é o Controller Produto
  */
-use Digital\Service\ProdutoService;
-use Digital\Database;
 use Digital\Paginator;
+use Digital\Service\ProdutoService;
 
-$service = new ProdutoService(); /* classe database sera removida */
+$service = new ProdutoService (); /* classe database sera removida */
 
-$paginator = new Paginator();
+$paginator = new Paginator ();
+$paginator->setPaginadorAtivo ( true );
+$paginator->setAlvo ( 'produto' );
 
 /*
  * tipos de entrada:
@@ -16,47 +17,53 @@ $paginator = new Paginator();
  * -> pelo botao buscar
  * -> pelo paginador
  */
-
-if (isset($_GET['next'])) {
-	$paginator->setAtivo(true);
-	$paginator->setCampo($_GET['campo']);
-	$paginator->setCriterio($_GET['criterio']);
-	$paginator->setTermo($_GET['termo']);
-	$paginator->setQuantidade($_GET['quantidade']);
-	if ($_GET['next'] == ''){
-		$paginator->setAtual(1);
-		$paginator->setProximo(0);
+/* a variavel p indica que o paginador foi clicado */
+if (isset ( $_GET ['p'] )) {
+	
+	/* campo como * indica que o cliente pediu uma listagem de todos os produtos */
+	if ($_GET ['campo'] == '*') {
+		$paginator->setBuscaCampo ( '*' );
+		$paginator->setOffset ( (($_GET ['pag'] -1) * $paginator->getQuantidadePorPagina ()) );
+		$paginator->setRegistroAtual($_GET['pag']);
+		$paginator->setProximoRegistro($_GET['pag'] + 1);
+		$result = $service->listaPaginada ( $em, $paginator );
+		defineBotoes ( $paginator );
 	} else {
-		$paginator->setAtual($_GET['next']);
-		$paginator->setProximo($paginator->getQuantidade() * ($paginator->getAtual() -1));
+		/* campo diferente de * indica que a busca foi acionada */
+		$paginator->setBuscaCampo ( $_GET ['campo'] );
+		$paginator->setBuscaCriterio ( $_GET ['criterio'] );
+		$paginator->setBuscaTermo ( $_GET ['termo'] );
+		if ($_GET ['quantidade'] != '' ){
+			$qtde = $_GET ['quantidade'];
+		} else {
+			$qtde = POR_PAGINA;
+		}
+		$paginator->setQuantidadePorPagina ( $qtde );
+		if ($_GET ['pag'] == '') {
+			$paginator->setRegistroAtual ( 1 );
+			$paginator->setProximoRegistro ( 2 );
+		} else {
+			$paginator->setRegistroAtual ( $_GET ['pag'] );
+			$paginator->setProximoRegistro ( $paginator->getRegistroAtual () + 1 );
+			$paginator->setOffset ( $paginator->getQuantidadePorPagina () * ($paginator->getRegistroAtual () - 1) );
+		}
+		$result = $service->buscaPersonalizada ( $em, $paginator );
+		defineBotoes ( $paginator );
 	}
-	
-	$result = $service->buscaPersonalizada($em, $paginator);
-	
-	/* define a quantidade de botoes a serem usados no paginator */
-	if ($paginator->getResultados() % $paginator->getQuantidade() != 0) {
-		$botoes = intval($paginator->getResultados() / $paginator->getQuantidade()) + 1;
-	}
-	else {
-		$botoes = intval($paginator->getResultados() / $paginator->getQuantidade());
-	}
-	if ($botoes == 0) {
-		$botoes = 1;
-	}
-	$paginator->setBotoesTotais($botoes);
-	if ($botoes > BOTOES) {
-		$botoes = BOTOES;
-	}
-	$paginator->setBotoes($botoes);
-}
-else {
-	$result = $service->findAll($em);
-	$paginator->setAtivo(false);
-	$paginator->setResultados($service->getRecordCount($em)[0][1]);
-	$paginator->setAtual(1);
+} else {
+	/* p nao existe e paginador inicial é montado */
+	$paginator->setRegistroAtual ( 1 );
+	$paginator->setBuscaCampo ( '*' );
+	$result = $service->listaPaginada ( $em, $paginator );
+	defineBotoes ( $paginator );
 }
 
-$dados['produtos'] = $result;
-$dados['paginator'] = $paginator;
+foreach ( $result as $p ) {
+	$p->setValor ( formatarValor ( $p->getValor () ) );
+	$prod [$p->getId ()] = $p;
+}
 
-echo $twig->render("produto.twig", $dados);
+$dados ['produtos'] = $prod;
+$dados ['paginator'] = $paginator;
+
+echo $twig->render ( "produto.twig", $dados );

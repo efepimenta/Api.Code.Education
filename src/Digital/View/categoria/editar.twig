@@ -2,58 +2,59 @@
 {% if not logado %}
     <h4>Favor logar para fazer alterações</h4>
 {% else %}
-<h1>Lista de Categorias</h1>
-<table class="table table-bordered table-striped">
-    <tr>
-    	<th>Id</th>
-        <th>Nome</th>
-        <th>Descricao</th>
-        <th>Controle</th>
-    </tr>
-
-    {% for cat in categorias %}
+    <h1>Lista de Categorias</h1>
+    <table class="table table-bordered table-striped">
         <tr>
-        	<td>{{ cat.id }}</td>
-            <td>{{ cat.nome }}</td>
-            <td>{{ cat.descricao }}</td>
-            <td>
-                <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-primary btn-xs"
-                        data-toggle="modal" data-target="#edit{{ cat.id }}">Editar
-                </button>
-            </td>
-            <form action="{{ path() }}categoria/editar" method="post">
-            	<input type="hidden" name="id" value="{{ cat.id }}">
-                <!-- Modal -->
-                <div class="modal fade" id="edit{{ cat.id }}" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span
-                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel">Editando
-                                    <strong>{{ cat.nome }}</strong></h4>
-                            </div>
-                            <div class="modal-body">
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Descricao</th>
+            <th>Controle</th>
+        </tr>
 
-                                <label>Nome: <input type="text" name="nome" value="{{ cat.nome }}"></label><br>
-                                <label>Descrição:<input type="text" name="descricao"
-                                                        value="{{ cat.descricao }}"></label><br>
+        {% for cat in categorias %}
+            <tr>
+                <td>{{ cat.id }}</td>
+                <td>{{ cat.nome }}</td>
+                <td>{{ cat.descricao }}</td>
+                <td>
+                    <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-primary btn-xs"
+                            data-toggle="modal" data-target="#edit{{ cat.id }}">Editar
+                    </button>
+                </td>
+                <form action="{{ path() }}categoria/editar" method="post">
+                    <input type="hidden" name="id" value="{{ cat.id }}">
+                    <!-- Modal -->
+                    <div class="modal fade" id="edit{{ cat.id }}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span
+                                                aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Editando
+                                        <strong>{{ cat.nome }}</strong></h4>
+                                </div>
+                                <div class="modal-body">
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary">Salvar alterações</button>
-                                <input type="hidden" name="acao" value="editar">
+                                    <label>Nome: <input class="form-control" type="text" name="nome"
+                                                        value="{{ cat.nome }}"></label><br>
+                                    <label>Descrição:<input class="form-control" type="text" name="descricao"
+                                                            value="{{ cat.descricao }}"></label><br>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+                                    <input type="hidden" name="acao" value="editar">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </tr>
-    {% endfor %}
-</table>
-<br>
+                </form>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
 {% endif %}
 {% include 'footer.twig' %}

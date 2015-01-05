@@ -1,17 +1,17 @@
 {
-	"config": {
-		"bin-dir": "bin/"
-	},
-	"autoload":{
-		"psr-4": {"Digital\\": "src/Digital/"}
-	},
-    	"require": {
-        	"phpunit/phpunit": "~4.0",
-        	"phpunit/phpunit-selenium": "~1.2",
-            "pimple/pimple": "~3.0",
-        	"silex/silex": ">=2.0.x-dev",
-        	"twig/twig": ">=1.8",
-        	"symfony/twig-bridge": "~2.3",
-        	"doctrine/orm": "~2.4"
-    }
+  "config": {
+    "bin-dir": "bin/"
+  },
+  "autoload": {
+    "psr-4": {"Digital\\": "src/Digital/"}
+  },
+  "require": {
+    "phpunit/phpunit": "~4.0",
+    "phpunit/phpunit-selenium": "~1.2",
+    "pimple/pimple": "~3.0",
+    "silex/silex": ">=2.0.x-dev",
+    "twig/twig": ">=1.8",
+    "symfony/twig-bridge": "~2.3",
+    "doctrine/orm": "~2.4"
+  }
 }

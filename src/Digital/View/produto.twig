@@ -2,111 +2,102 @@
 {% include 'header.twig' %}
 
 <script type="text/javascript">
-function buscavazia(){
-	if (document.getElementById("buscar").value == ''){
-    	document.getElementById("errorspace").style.display = 'block';
-	}
-}
+    function buscavazia() {
+        if (document.getElementById("buscar").value == '') {
+            document.getElementById("errorspace").style.display = 'block';
+        }
+    }
 </script>
 
 <div class="row clearfix">
-<div class="col-lg-12">
-		<div class=" panel panel-info">
-			<div class="panel-heading">Produtos - Busca Avançada</div>
-			<div class="panel-body">
-				<div id="errorspace" style="display: none;">
-					<div class="alert alert-warning alert-dismissible" role="alert">
-						<strong>Warning!</strong> Better check yourself, you're not
-						looking too good.
-					</div>
-				</div>
-				<form role="form" method="get" class="form-inline" action="produto">
-					<div class="form-group">
-						<select name="campo" class="form-control">
-							<option {% if paginator.campo == 'id' %}selected="selected" {% endif %} value="id">Id</option>
-							<option {% if paginator.campo == 'nome' %}selected="selected" {% endif %}value="nome">Nome</option>
-							<option {% if paginator.campo == 'descricao' %}selected="selected" {% endif %}value="descricao">Descrição</option>
-							<option {% if paginator.campo == 'id_categoria' %}selected="selected" {% endif %}value="id_categoria">Categoria</option>
-						</select> 
-						<select name="criterio" class="form-control">
-							<option {% if paginator.criterio == 'igual' %}selected="selected" {% endif %}value="igual">É Igual</option>
-							<option {% if paginator.criterio == 'diferente' %}selected="selected" {% endif %}value="diferente">Diferente</option>
-							<option {% if paginator.criterio == 'contem' %}selected="selected" {% endif %}value="contem">Contém</option>
-							<option {% if paginator.criterio == 'comeca' %}selected="selected" {% endif %}value="comeca">Começa com</option>
-							<option {% if paginator.criterio == 'termina' %}selected="selected" {% endif %}value="termina">Termina com</option>
-						</select> 
-						<input type="text" class="form-control"	placeholder="Buscar por" id="buscar" name="termo"
-							{% if paginator.termo != null %} value={{ paginator.termo }} {% endif %}>
-						<select name="quantidade" class="form-control">
-							<option {% if paginator.quantidade == '5' %}selected="selected" {% endif %}value="5">5 por página</option>
-							<option {% if paginator.quantidade == '10' %}selected="selected" {% endif %}value="10">10 por página</option>
-							<option {% if paginator.quantidade == '50' %}selected="selected" {% endif %}value="50">50 por página</option>
-							<option {% if paginator.quantidade == '100' %}selected="selected" {% endif %}value="100">100 por página</option>
-						</select> 
-						<button type="submit" class="btn btn-primary" name="next">Buscar</button>
-						<span class="badge">{{ paginator.resultados }}</span>
-					</div>
-				</form>
-			</div>
-	</div>
-</div>
+    <div class="col-lg-12">
+        <div class=" panel panel-info">
+            <div class="panel-heading">Produtos - Busca Avançada</div>
+            <div class="panel-body">
+                <div id="errorspace" style="display: none;">
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <strong>Warning!</strong> Better check yourself, you're not
+                        looking too good.
+                    </div>
+                </div>
+                <form role="form" method="get" class="form-inline" action="produto">
+                    <div class="form-group">
+                        <select name="campo" class="form-control">
+                            <option {% if paginator.buscaCampo == 'id' %}selected="selected" {% endif %} value="id">Id
+                            </option>
+                            <option {% if paginator.buscaCampo == 'nome' %}selected="selected" {% endif %}value="nome">
+                                Nome
+                            </option>
+                            <option {% if paginator.buscaCampo == 'descricao' %}selected="selected"
+                                    {% endif %}value="descricao">Descrição
+                            </option>
+                            <option {% if paginator.buscaCampo == 'id_categoria' %}selected="selected"
+                                    {% endif %}value="id_categoria">Categoria
+                            </option>
+                        </select>
+                        <select name="criterio" class="form-control">
+                            <option {% if paginator.buscaCriterio == 'igual' %}selected="selected"
+                                    {% endif %}value="igual">É Igual
+                            </option>
+                            <option {% if paginator.buscaCriterio == 'diferente' %}selected="selected"
+                                    {% endif %}value="diferente">Diferente
+                            </option>
+                            <option {% if paginator.buscaCriterio == 'contem' %}selected="selected"
+                                    {% endif %}value="contem">Contém
+                            </option>
+                            <option {% if paginator.buscaCriterio == 'comeca' %}selected="selected"
+                                    {% endif %}value="comeca">Começa com
+                            </option>
+                            <option {% if paginator.buscaCriterio == 'termina' %}selected="selected"
+                                    {% endif %}value="termina">Termina com
+                            </option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="Buscar por" id="buscar" name="termo"
+                                {% if paginator.buscaTermo != null %} value={{ paginator.buscaTermo }} {% endif %}>
+                        <select name="quantidade" class="form-control">
+                            <option {% if paginator.quantidadePorPagina == '5' %}selected="selected"
+                                    {% endif %}value="5">5 por página
+                            </option>
+                            <option {% if paginator.quantidadePorPagina == '10' %}selected="selected"
+                                    {% endif %}value="10">10 por página
+                            </option>
+                            <option {% if paginator.quantidadePorPagina == '50' %}selected="selected"
+                                    {% endif %}value="50">50 por página
+                            </option>
+                            <option {% if paginator.quantidadePorPagina == '100' %}selected="selected"
+                                    {% endif %}value="100">100 por página
+                            </option>
+                        </select>
+                        {{ paginator.quantidadePorPagina }}
+                        <input type="hidden" name="p" value="p">
+                        <button type="submit" class="btn btn-primary" name="pag">Buscar</button>
+                        <span class="badge">{{ paginator.resultadosEncontrados }}</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row clearfix">
-	{% for produto in produtos %}
-	<div class="col-sm-3 col-md-3 col-lg-3">
-		<div class="thumbnail">
-			<img data-src="holder.js/50x50" src="{{ produto.imagem }}" alt="{{ produto.nome }}">
-			<div class="caption">
-				<h3>{{ produto.nome }}</h3>
-				<p>{{ produto.descricao }}</p>
-				<p>Custa R$ {{ produto.valor }}</p>
-			</div>
-		</div>
-	</div>
-	{% endfor %}
+    {% for produto in produtos %}
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <div class="thumbnail">
+                <img data-src="holder.js/50x50" src="{{ produto.imagem }}" alt="{{ produto.nome }}">
+
+                <div class="caption">
+                    <h3>{{ produto.nome }}</h3>
+
+                    <p>{{ produto.descricao }}</p>
+
+                    <p>Custa só R$ {{ produto.valor }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
 {# montagem do paginator #}
-{% if paginator.ativo %}
-{{ paginator.atual }}
-<div class="row clearfix">
-	<div class="col-lg-9"></div>
-	<div class="col-lg-3">
-		<nav>
-			<ul class="pagination">
-				{# monta o botao << #}
-				{% if paginator.atual != 1 %}
-					<li><a href="produto?next=1&
-						&campo={{ paginator.campo }}
-						&criterio={{ paginator.criterio }}
-						&termo={{ paginator.termo }}
-						&quantidade={{ paginator.quantidade }}"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-				{% endif %}
-				
-				{# monta os botoes do paginador #}
-				{% for b in 1 .. paginator.botoesTotais %}
-					{% if (paginator.atual + b) <= paginator.botoesTotais + 1 %}
-						<li {% if b == paginator.atual %} class="active" {% endif %}><a href="produto?next={{ paginator.atual + b -1 }}
-							&campo={{ paginator.campo }}
-							&criterio={{ paginator.criterio }}
-							&termo={{ paginator.termo }}
-							&quantidade={{ paginator.quantidade }}">{{ paginator.atual + b -1 }}</a></li>
-					{% endif %}
-				{% endfor %}
-				
-				{# monta o botao >> #}
-				{% if paginator.atual < paginator.botoes %}
-					<li><a href="produto?next={{ paginator.atual + 1 }}
-						&campo={{ paginator.campo }}
-						&criterio={{ paginator.criterio }}
-						&termo={{ paginator.termo }}
-						&quantidade={{ paginator.quantidade }}"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
-				{% endif %}
-			</ul>
-		</nav>
-	</div>
-</div>
-{% endif %}
+{% include 'paginator.twig' %}
 
 {% include 'footer.twig' %}

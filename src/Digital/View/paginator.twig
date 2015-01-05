@@ -1,0 +1,53 @@
+{# {% if paginator.proximoRegistro -1 == paginator.registroAtual %} class="active" {% endif %}#}
+{% if paginator.paginadorAtivo %}
+
+{% if paginator.registroAtual <= paginator.botoes %}
+	{% set de = 1 %}
+	{% set para = paginator.botoes %}
+{% else %}
+	{% set de = paginator.registroAtual %}
+	{% set para = paginator.registroAtual + paginator.botoes %}
+{% endif %}
+                
+    <div class="row-lg-12 clearfix">
+        {# 	<div class="col-lg-12">#}
+        <nav>
+            <ul class="pagination pagination-right">
+                {# monta o botao << #}
+                {% if paginator.registroAtual != 1 %}
+                    <li><a href="{{ paginator.alvo }}?p=p
+						&pag={{ paginator.registroAtual -1 }}
+						&campo={{ paginator.buscaCampo }}
+						&criterio={{ paginator.buscaCriterio }}
+						&termo={{ paginator.buscaTermo }}
+						&quantidade={{ paginator.quantidadePorPagina }}"><span aria-hidden="true">&laquo;</span><span
+                                    class="sr-only">Previous</span></a></li>
+                {% endif %}
+
+                {# monta os botoes numericos #}
+                {% for b in de .. para %}
+                    <li>
+                        <a href="{{ paginator.alvo }}?p=p
+						&pag={{ b }}
+						&campo={{ paginator.buscaCampo }}
+						&criterio={{ paginator.buscaCriterio }}
+						&termo={{ paginator.buscaTermo }}
+						&quantidade={{ paginator.quantidadePorPagina }}">{{ b }}</a>
+                    </li>
+                {% endfor %}
+
+                {# monta o botao >> #}
+                {% if paginator.registroAtual < paginator.botoes %}
+                    <li><a href="{{ paginator.alvo }}?p=p
+						&pag={{ paginator.registroAtual + 1 }}
+						&campo={{ paginator.buscaCampo }}
+						&criterio={{ paginator.buscaCriterio }}
+						&termo={{ paginator.buscaTermo }}
+						&quantidade={{ paginator.quantidadePorPagina }}"><span aria-hidden="true">&raquo;</span><span
+                                    class="sr-only">Next</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        {# 	</div>#}
+    </div>
+{% endif %}

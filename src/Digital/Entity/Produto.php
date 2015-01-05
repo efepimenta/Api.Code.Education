@@ -10,121 +10,135 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Produto implements PersistentInterface
 {
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue
-	 */
-	private $id;
-	/**
-	 * @ORM\Column(type="string",length=20)
-	 */
-	private $codigo;
-	/**
-	 * @ORM\Column(type="string",length=100)
-	 */
-	private $nome;
-	/**
-	 * @ORM\Column(type="text")
-	 */
-	private $descricao;
-	/**
-	 * @ORM\OneToOne(targetEntity="Digital\Entity\Categoria")
-	 * @ORM\JoinColumn(name="id_categoria", referencedColumnName="id")
-	 */
-	private $id_categoria;
-	/**
-	 * @ORM\Column(type="decimal",precision=10, scale=2)
-	 */
-	private $valor;
-	/**
-	 * @ORM\Column(type="string",length=100)
-	 */
-	private $imagem;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    private $id;
+    /**
+     * @ORM\Column(type="string",length=20)
+     */
+    private $codigo;
+    /**
+     * @ORM\Column(type="string",length=100)
+     */
+    private $nome;
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $descricao;
+    /**
+     * @ORM\OneToOne(targetEntity="Digital\Entity\Categoria")
+     * @ORM\JoinColumn(name="id_categoria", referencedColumnName="id")
+     */
+    private $id_categoria;
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $valor;
+    /**
+     * @ORM\Column(type="string",length=100)
+     */
+    private $imagem;
 
-	public function getId_categoria() {
+    public function getId_categoria()
+    {
 
-		return $this->id_categoria;
-	
-	}
+        return $this->id_categoria;
 
-	public function setId_categoria($id_categoria) {
+    }
 
-		$this->id_categoria = $id_categoria;
-	
-	}
+    public function setId_categoria($id_categoria)
+    {
 
-	public function getCodigo() {
+        $this->id_categoria = $id_categoria;
 
-		return $this->codigo;
-	
-	}
+    }
 
-	public function setCodigo($codigo) {
+    public function getCodigo()
+    {
 
-		$this->codigo = $codigo;
-	
-	}
+        return $this->codigo;
 
-	public function getDescricao() {
+    }
 
-		return $this->descricao;
-	
-	}
+    public function setCodigo($codigo)
+    {
 
-	public function setDescricao($descricao) {
+        $this->codigo = $codigo;
 
-		$this->descricao = $descricao;
-	
-	}
+    }
 
-	public function getId() {
+    public function getDescricao()
+    {
 
-		return $this->id;
-	
-	}
+        return $this->descricao;
 
-	public function setId($id) {
+    }
 
-		$this->id = $id;
-	
-	}
+    public function setDescricao($descricao)
+    {
 
-	public function getNome() {
+        $this->descricao = $descricao;
 
-		return $this->nome;
-	
-	}
+    }
 
-	public function setNome($nome) {
+    public function getId()
+    {
 
-		$this->nome = $nome;
-	
-	}
+        return $this->id;
 
-	public function getValor() {
+    }
 
-		return $this->valor;
-	
-	}
+    public function setId($id)
+    {
 
-	public function setValor($valor) {
+        $this->id = $id;
 
-		$this->valor = $valor;
-	
-	}
+    }
 
-	public function getImagem() {
+    public function getNome()
+    {
 
-		return $this->imagem;
-	
-	}
+        return $this->nome;
 
-	public function setImagem($imagem) {
+    }
 
-		$this->imagem = $imagem;
-		return $this;
-	
-	}
+    public function setNome($nome)
+    {
+
+        $this->nome = $nome;
+
+    }
+
+    public function getValor()
+    {
+
+        return $this->valor;
+
+    }
+
+    public function setValor($valor)
+    {
+
+        $this->valor = $valor;
+
+    }
+
+    public function getImagem()
+    {
+
+        return $this->imagem;
+
+    }
+
+    public function setImagem($imagem)
+    {
+
+        $this->imagem = $imagem;
+        return $this;
+
+    }
 
 } 

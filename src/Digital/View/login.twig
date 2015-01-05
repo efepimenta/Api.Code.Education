@@ -1,17 +1,17 @@
 <div class="nav navbar-nav navbar-right">
-<form id="form-login" class="navbar-form navbar-left" role="login" action="{{ path() }}login" method="post">
-            <div class="form-group">    
-			{% if logado %}
+    <form id="form-login" class="navbar-form navbar-left" role="login" action="{{ path() }}login" method="post">
+        <div class="form-group">
+            {% if logado %}
                 <button name="sair" type="submit" class="btn btn-default">Sair</button>
                 <input type="hidden" value="sair" name="controle">
                 <input type="hidden" value="{{ uri }}" name="uri">
-    {% else %}
+            {% else %}
                 <input name="login" type="text" class="form-control" placeholder="Login">
                 <input name="senha" type="password" class="form-control" placeholder="Senha">
                 <button name="entrar" type="submit" class="btn btn-default">Entrar</button>
                 <input type="hidden" value="entrar" name="controle">
                 <input type="hidden" value="{{ uri }}" name="uri">
-    {% endif %}
-	    </div>
-        </form>
+            {% endif %}
+        </div>
+    </form>
 </div>

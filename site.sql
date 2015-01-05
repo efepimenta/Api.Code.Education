@@ -25,6 +25,11 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `categorias`
 --
+DROP SCHEMA IF EXISTS `site`;
+
+CREATE SCHEMA `site`;
+
+USE `site`;
 
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int(11) NOT NULL,

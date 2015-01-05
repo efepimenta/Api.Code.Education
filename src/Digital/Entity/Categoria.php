@@ -10,58 +10,64 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Categoria implements PersistentInterface
 {
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue
-	 */
-	private $id;
-	/**
-	 * @ORM\Column(type="string",length=60)
-	 */
-	private $nome;
-	/**
-	 * @ORM\Column(type="string",length=250)
-	 */
-	private $descricao;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
+     */
+    private $id;
+    /**
+     * @ORM\Column(type="string",length=60)
+     */
+    private $nome;
+    /**
+     * @ORM\Column(type="string",length=250)
+     */
+    private $descricao;
 
-	public function getId() {
+    public function getId()
+    {
 
-		return $this->id;
-	
-	}
+        return $this->id;
 
-	public function setId($id) {
+    }
 
-		$this->id = $id;
-		return $this;
-	
-	}
+    public function setId($id)
+    {
 
-	public function getNome() {
+        $this->id = $id;
+        return $this;
 
-		return $this->nome;
-	
-	}
+    }
 
-	public function setNome($nome) {
+    public function getNome()
+    {
 
-		$this->nome = $nome;
-		return $this;
-	
-	}
+        return $this->nome;
 
-	public function getDescricao() {
+    }
 
-		return $this->descricao;
-	
-	}
+    public function setNome($nome)
+    {
 
-	public function setDescricao($descricao) {
+        $this->nome = $nome;
+        return $this;
 
-		$this->descricao = $descricao;
-		return $this;
-	
-	}
+    }
+
+    public function getDescricao()
+    {
+
+        return $this->descricao;
+
+    }
+
+    public function setDescricao($descricao)
+    {
+
+        $this->descricao = $descricao;
+        return $this;
+
+    }
 
 }
