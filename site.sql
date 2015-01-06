@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   `codigo` varchar(20) DEFAULT NULL,
   `nome` varchar(100) NOT NULL,
   `descricao` text NOT NULL,
-  `valor` int(11) NOT NULL,
+  `valor` DECIMAL (10,2) NOT NULL,
   `imagem` varchar(50) DEFAULT NULL,
   `id_categoria` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;

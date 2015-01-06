@@ -95,20 +95,21 @@ class ProdutoValidator {
 		
 		if ($this->entra) {
 			// remover todos os caracteres nao numericos de $valor
-			
-			$valor = soNumero ( $valor );
-			
-			/* verifica se valor é numerico */
-			if (! is_numeric ( $valor )) {
-				$this->mensagemDeErro = $falta . '-> Valor tem que ser numérico';
-				$this->erros = true;
+
+			if (!is_int($valor)) {
+				$valor = formatFloat($valor);
+			} else {
+				$valor = formatarValor($valor);
 			}
+
+//			var_dump($valor);exit;
+
 			/* verifica se valor é mairo que 0 */
 			if (($valor < 0)) {
 				$this->mensagemDeErro = $falta . '-> Valor tem que ser maior que 0';
 				$this->erros = true;
 			}
-			
+
 			/* verifica se categoria é numerico */
 			$ct = new CategoriaService ();
 			$cat = $ct->find ( $em, $categoria );

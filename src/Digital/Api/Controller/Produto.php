@@ -40,9 +40,15 @@ $produto->get("/{id}", function ($id) use ($app, $service, $validator) {
 
 $produto->post("/", function (Request $request) use ($app, $service, $validator) {
 
-    if (!$validator->validar($app['em'], 'inserir', '', $request->get('nome'), $request->get('descricao'), $request->get('categoria'), $request->get('valor'))) {
+    $cat = $request->get('categoria');
+    if ( is_null($cat) ) {
+        return $app->json('Categoria não informada');
+    }
+
+    if (!$validator->validar($app['em'], 'inserir', '', $request->get('nome'), $request->get('descricao'), $cat, $request->get('valor'))) {
         return $app->json($validator->mensagemDeErro());
     }
+
     $return = $service->persist($app['em'], $validator->getProduto());
     if ($return) {
         return $app->json("Produto ID {$validator->getProduto()->getId()} inserido com sucesso");
@@ -52,10 +58,19 @@ $produto->post("/", function (Request $request) use ($app, $service, $validator)
 
 $produto->put("/{id}", function (Request $request, $id) use ($app, $service, $validator) {
 
-    if (!$validator->validar($app['em'], 'atualizar', $id, $request->get('nome'), $request->get('descricao'), $request->get('categoria'), $request->get('valor'))) {
+    $cat = $request->get('categoria');
+    if ( is_null($cat) ) {
+        return $app->json('Categoria não informada');
+    }
+    if (!$validator->validar($app['em'], 'atualizar', $id, $request->get('nome'), $request->get('descricao'), $cat, $request->get('valor'))) {
         return $app->json($validator->mensagemDeErro());
     }
-    $return = $service->update($app['em'], $validator->getProduto());
+    $prod = $validator->getProduto();
+    try {
+        $return = $service->update($app['em'], $prod);
+    } catch (Exception $e) {
+        return $app->json('Erro ao atualizar produto ou produto não encontrado');
+    }
     if ($return) {
         return $app->json('Produto atualizado com sucesso');
     }

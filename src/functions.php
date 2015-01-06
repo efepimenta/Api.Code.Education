@@ -27,12 +27,28 @@ function defineBotoes(Paginator $paginator)
 function soNumero($str) {
 	return preg_replace("/[^0-9]/", "", $str);
 }
+
+/**
+ * formata um valor para ser incluso no banco de dados
+ * @param $valor
+ * @return string
+ */
+function formatFloat($valor){
+	if (isset($valor)) {
+		$valor = str_replace('.', '', $valor);
+		$valor = str_replace(',', '.', $valor);
+		$valor = str_replace('R$ ', '', $valor);
+		$valor = number_format($valor, CASAS_DECIMAIS, '.', '');
+		return $valor;
+	}
+}
 /**
  * formata um valor inteiro colocando os pontos decimais
  * @param unknown $valor
  * @return string
  */
 function formatarValor($valor){
+
 	$valor = soNumero($valor);
 	if (strlen($valor) < 3){
 		$valor = str_pad($valor, 4, "0",STR_PAD_LEFT);

@@ -19,24 +19,15 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
 
     $validator = new ProdutoValidator();
 
-    // var_dump($_POST['categoria']);exit;
     if (!$validator->validar($em, 'atualizar', $_POST['id'], $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor'])) {
         $dados['erros'] = $validator->mensagemDeErro();
         echo $twig->render('produto/editar.incompleto.twig', $dados);
         exit();
     }
     
-//     var_dump($validator);exit;
-
     $produto = $validator->getProduto();
-
-    // $categoria = $cat->idPorDescricao($_POST['categoria'], true); //doctrine FAIO
     $categoria = $cat->idPorDescricao($em, $_POST['categoria'])[0]; // doctrine OK
-//     $produto->setId($_POST['id']);
-//     $produto->setNome($_POST['nome']);
-//     $produto->setDescricao($_POST['descricao']);
     $produto->setId_categoria($categoria);
-//     $produto->setValor($_POST['valor']);
 
     $result = $service->update($em, $produto);
     defineBotoes($paginator);

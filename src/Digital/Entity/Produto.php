@@ -34,7 +34,7 @@ class Produto implements PersistentInterface
      */
     private $id_categoria;
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal",precision=10, scale=2)
      */
     private $valor;
     /**
