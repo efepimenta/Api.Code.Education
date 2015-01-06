@@ -63,7 +63,11 @@ foreach ( $result as $p ) {
 	$prod [$p->getId ()] = $p;
 }
 
-$dados ['produtos'] = $prod;
+if (isset($prod)) {
+	$dados ['produtos'] = $prod;
+} else {
+	$paginator->setPaginadorAtivo(false);
+}
 $dados ['paginator'] = $paginator;
 
 echo $twig->render ( "produto.twig", $dados );
