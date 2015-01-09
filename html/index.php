@@ -17,6 +17,4 @@ if ($uri != 'index') {
     exit();
 }
 //se a rota for index, renderiza
-$valor = 'R$' . number_format(123425865.26, 2, ',', '.');
-$dados['umvalor'] = $valor;
 echo $twig->render('index.twig', $dados);

@@ -42,6 +42,9 @@ class Produto implements PersistentInterface
      */
     private $imagem;
 
+    
+    private $tags;
+
     public function getId_categoria()
     {
 
@@ -140,5 +143,13 @@ class Produto implements PersistentInterface
         return $this;
 
     }
+	public function getTags() {
+		return $this->tags;
+	}
+	public function setTags($tags) {
+		$this->tags = $tags;
+		return $this;
+	}
+	
 
 } 

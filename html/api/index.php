@@ -1,6 +1,8 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Response;
+// use Symfony\Component\HttpFoundation\Response;
+use Digital\Api\Controller\ProdutoApiController;
+use Digital\Api\Controller\CategoriaApiController;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
@@ -22,8 +24,10 @@ $app->get('/', function () {
     return 'Welcome to the jungle';
 });
 
-$app->mount('/produto/', include __DIR__ . '/../../src/Digital/Api/Controller/Produto.php');
+$produto = new ProdutoApiController();
+$app->mount('/produto/', $produto->getController($app));
 
-$app->mount('/categoria/', include __DIR__ . '/../../src/Digital/Api/Controller/Categoria.php');
+$categoria = new CategoriaApiController();
+$app->mount('/categoria/', $categoria->getController($app));
 
 $app->run();
