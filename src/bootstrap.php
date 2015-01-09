@@ -15,7 +15,7 @@ if (empty ( session_id () )) {
 	session_start ();
 }
 
-require_once __DIR__ . '/bootstrap-doctrine.php';
+require __DIR__ . '/bootstrap-doctrine.php';
 require_once __DIR__ . '/../src/settings.php';
 require_once __DIR__ . '/../src/functions.php';
 

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Digital\Entity\TagRepository")
  * @ORM\Table(name="tags")
  */
-class Categoria implements PersistentInterface
+class Tag implements PersistentInterface
 {
     /**
      * @ORM\Id

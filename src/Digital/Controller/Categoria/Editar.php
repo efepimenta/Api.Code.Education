@@ -14,7 +14,6 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
         exit();
     }
 
-
     $categoria = $validator->getCategoria();
 
     $categoria->setId($_POST['id']);
