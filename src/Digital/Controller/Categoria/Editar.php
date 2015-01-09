@@ -21,7 +21,12 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
     $categoria->setNome($_POST['nome']);
     $categoria->setDescricao($_POST['descricao']);
 
-    $result = $service->update($em, $categoria);
+    try {
+        $result = $service->update($em, $categoria);
+    } catch (Exception $e){
+        die ($twig->render("categoria/editar.erro.twig", $dados));
+    }
+
     if ($result) {
         echo $twig->render("categoria/editar.ok.twig", $dados);
     } else {

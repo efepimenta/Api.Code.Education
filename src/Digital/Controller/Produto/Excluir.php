@@ -16,8 +16,12 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 
     $produto = $validator->getProduto();
 
-    // if ($service->deletar($_POST['id'])) {
+    try {
     $result = $service->remove($em, $produto);
+    } catch (Exception $e){
+        die ($twig->render("produto/excluir.erro.twig", $dados));
+    }
+
     if ($result) {
         echo $twig->render("produto/excluir.ok.twig", $dados);
     } else {

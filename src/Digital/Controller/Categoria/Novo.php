@@ -16,7 +16,12 @@ if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
     $service = new CategoriaService($database);
     $categoria = $validator->getCategoria();
 
-    $result = $service->persist($em, $categoria);
+    try {
+        $result = $service->persist($em, $categoria);
+    } catch (Exception $e){
+        die ($twig->render("categoria/novo.erro.twig", $dados));
+    }
+
     if ($result) {
         echo $twig->render("categoria/novo.ok.twig", $dados);
     } else {

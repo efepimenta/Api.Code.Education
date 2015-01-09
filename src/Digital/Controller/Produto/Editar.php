@@ -29,7 +29,12 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
     $categoria = $cat->idPorDescricao($em, $_POST['categoria'])[0]; // doctrine OK
     $produto->setId_categoria($categoria);
 
-    $result = $service->update($em, $produto);
+    try {
+        $result = $service->update($em, $produto);
+    } catch (Exception $e){
+        die ($twig->render("produto/editar.erro.twig", $dados));
+    }
+
     defineBotoes($paginator);
     if ($result) {
         echo $twig->render("produto/editar.ok.twig", $dados);

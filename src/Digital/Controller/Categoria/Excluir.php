@@ -15,9 +15,11 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
 
     $categoria = $validator->getCategoria();
 
-    // if ($service->deletar($_POST['id'])) {
-
-    $result = $service->remove($em, $categoria);
+    try {
+        $result = $service->remove($em, $categoria);
+    } catch (Exception $e) {
+        die ($twig->render("categoria/excluir.erro.twig", $dados));
+    }
     if ($result) {
         echo $twig->render("categoria/excluir.ok.twig", $dados);
     } else {

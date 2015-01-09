@@ -23,7 +23,12 @@ if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
 
     $produto->setId_categoria($categoria[0]);
 
+    try {
     $result = $service->persist($em, $produto);
+    } catch (Exception $e){
+        die ($twig->render("produto/novo.erro.twig", $dados));
+    }
+
     if ($result) {
         echo $twig->render("produto/novo.ok.twig", $dados);
     } else {
