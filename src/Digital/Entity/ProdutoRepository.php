@@ -29,12 +29,20 @@ class ProdutoRepository extends EntityRepository
                 $crit = "LIKE '%{$paginator->getBuscaTermo()}'";
                 break;
         }
-
-        $dql = "SELECT COUNT(p.id) from Digital\Entity\Produto p WHERE p.{$paginator->getBuscaCampo()} {$crit}";
+        
+        if ($paginator->getBuscaCampo() == 'id_categoria'){
+            $dql = "SELECT COUNT(p.id) from Digital\Entity\Produto p join p.id_categoria c WHERE c.descricao {$crit}";
+        } else {
+            $dql = "SELECT COUNT(p.id) from Digital\Entity\Produto p WHERE p.{$paginator->getBuscaCampo()} {$crit}";
+        }
         $qtde = $this->getEntityManager()->createQuery($dql)->getResult();
         $paginator->setResultadosEncontrados($qtde[0][1]);
-
-        $dql = "SELECT p from Digital\Entity\Produto p WHERE p.{$paginator->getBuscaCampo()} {$crit}";
+        
+        if ($paginator->getBuscaCampo() == 'id_categoria'){
+            $dql = "SELECT p from Digital\Entity\Produto p join p.id_categoria c WHERE c.descricao {$crit}";
+        } else {
+            $dql = "SELECT p from Digital\Entity\Produto p WHERE p.{$paginator->getBuscaCampo()} {$crit}";
+        }
         $result = $this->getEntityManager()->createQuery($dql)
             ->setMaxResults($paginator->getQuantidadePorPagina())
             ->setFirstResult($paginator->getOffset())
