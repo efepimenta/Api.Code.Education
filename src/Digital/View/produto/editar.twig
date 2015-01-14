@@ -33,7 +33,7 @@
                             data-toggle="modal" data-target="#edit{{ produto.id }}">Editar
                     </button>
                 </td>
-                <form action="{{ path() }}produto/editar" method="post">
+                <form action="{{ path() }}produto/editar" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="{{ produto.id }}">
                     <!-- Modal -->
                     <div class="modal fade" id="edit{{ produto.id }}" tabindex="-1" role="dialog"
@@ -71,6 +71,7 @@
                                             });
                                         })
                                     </script>
+                                    <label>Imagem:<input class="form-control" type="file" name="imagem"></label><br>
                                     {# aqui entra os checkbox de tags #}
                                     <label>Tags:</label><br>
                                     {% for tag in tags %}

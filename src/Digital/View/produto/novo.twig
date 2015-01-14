@@ -7,7 +7,7 @@
 
     <div class="row clearfix">
         <div class="col-md-5">
-            <form role="form" action="{{ path() }}produto/novo" method="post">
+            <form role="form" action="{{ path() }}produto/novo" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Nome: <input type="text" name="nome" class="form-control" size="80"
                                         maxlength="120"></label><br>
@@ -31,11 +31,11 @@
                                             });
                                         })
                                     </script>
+                    <label>Imagem:<input class="form-control" type="file" name="imagem"></label><br>
                     {# aqui entra os checkbox de tags #}
                     <label>Tags:</label><br>
                     {% for tag in tags %}
                     <label><input type="checkbox" name="tag{{ tag.id }}">{{ tag.tag }}</label>
-                        
                     {% endfor %}
                     <br>
                     <button name="salvar" type="submit" class="btn btn-primary" {% if not logado %}disabled="disabled"{% endif %}>

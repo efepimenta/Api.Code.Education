@@ -4,9 +4,11 @@ namespace Digital\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Digital\Service\CategoriaService;
+use Digital\Service\UploadService;
 
 /**
  * @ORM\Entity(repositoryClass="Digital\Entity\ProdutoRepository")
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="produtos")
  */
 class Produto implements PersistentInterface
@@ -58,6 +60,23 @@ class Produto implements PersistentInterface
      * )
      */
     private $tags;
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function uploadImagem()
+    {
+        if (isset($this->imagem)) {
+            if (! empty($this->imagem)) {
+                $up = new UploadService($_FILES);
+                if ($up->upload()) {
+                    $this->imagem = $up->getFileName();
+                } else {
+                    die($up->getErros());
+                }
+            }
+        }
+    }
 
     public function __construct()
     {
@@ -134,7 +153,7 @@ class Produto implements PersistentInterface
     {
         return $this->tags;
     }
-    
+
     public function setTags($tags)
     {
         $this->tags = $tags;

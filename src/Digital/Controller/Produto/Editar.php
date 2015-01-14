@@ -27,7 +27,7 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'editar')) {
     $t = substr($t, 0, strlen($t)-1);
     $validator = new ProdutoValidator();
 
-    if (!$validator->validar($em, 'atualizar', $_POST['id'], $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor'],$t)) {
+    if (!$validator->validar($em, 'atualizar', $_POST['id'], $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor'],$_FILES['imagem']['name'],$t)) {
         $dados['erros'] = $validator->mensagemDeErro();
         echo $twig->render('produto/editar.incompleto.twig', $dados);
         exit();

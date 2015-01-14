@@ -10,7 +10,7 @@ use Digital\Service\TagService;
 class ProdutoValidator
 {
 
-    private $mensagemDeErro = "Informe o(s) seguinte(s) valores:";
+    private $mensagemDeErro;
 
     private $produto;
 
@@ -26,13 +26,19 @@ class ProdutoValidator
 
     private $valor;
 
+    private $imagem;
+
     private $erros;
 
     private $entra;
 
-    public function validar(EntityManager $em, $acao, $id = '', $nome = '', $descricao = '', $categoria = '', $valor = '', $tags = '')
+    public function __construct()
     {
-        $falta = '';
+        $this->mensagemDeErro[] = "Informe o(s) seguinte(s) valores:<br>";
+    }
+
+    public function validar(EntityManager $em, $acao, $id = '', $nome = '', $descricao = '', $categoria = '', $valor = '', $imagem = '', $tags = '')
+    {
         $this->erros = false;
         $this->entra = true;
         switch ($acao) {
@@ -41,7 +47,7 @@ class ProdutoValidator
                     $this->entra = false;
                     if (empty($id)) {
                         $this->erros = true;
-                        $falta = ' -> id ';
+                        $this->mensagemDeErro[] = 'id<br>';
                     }
                     break;
                 }
@@ -49,23 +55,27 @@ class ProdutoValidator
                 {
                     if (empty($nome)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> nome ';
+                        $this->mensagemDeErro[] = 'nome<br>';
                     }
                     if (empty($descricao)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> descricao ';
+                        $this->mensagemDeErro[] = 'descrição<br>';
                     }
                     if (empty($categoria)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> categoria ';
+                        $this->mensagemDeErro[] = 'categoria<br>';
                     }
                     if (empty($valor)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> valor ';
+                        $this->mensagemDeErro[] = 'valor<br>';
                     }
+//                     if (empty($imagem)) {
+//                         $this->erros = true;
+//                         $this->mensagemDeErro[] = 'imagem<br>';
+//                     }
                     if (empty($tags)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> tags ';
+                        $this->mensagemDeErro[] = 'tags<br>';
                     }
                     break;
                 }
@@ -73,27 +83,32 @@ class ProdutoValidator
                 {
                     if (empty($id)) {
                         $this->erros = true;
-                        $falta = ' -> id ';
+                        $this->mensagemDeErro[] = 'id<br>';
                     }
                     if (empty($nome)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> nome ';
+                        $this->mensagemDeErro[] = 'nome<br>';
                     }
                     if (empty($descricao)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> descricao ';
+                        $this->mensagemDeErro[] = 'descrição<br>';
                     }
                     if (empty($categoria)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> categoria ';
+                        $this->mensagemDeErro[] = 'categoria<br>';
                     }
                     if (empty($valor)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> valor ';
+                        $this->mensagemDeErro[] = 'valor<br>';
                     }
+//                     if (empty($imagem)) {
+//                         $this->erros = true;
+//                         $this->erros = true;
+//                         $this->mensagemDeErro[] = 'imagem<br>';
+//                     }
                     if (empty($tags)) {
                         $this->erros = true;
-                        $falta = $falta . ' -> tags ';
+                        $this->mensagemDeErro[] = 'tags<br>';
                     }
                     break;
                 }
@@ -102,14 +117,13 @@ class ProdutoValidator
                     $this->entra = false;
                     if (empty($id)) {
                         $this->erros = true;
-                        $falta = ' -> id ';
+                        $this->mensagemDeErro[] = 'id<br>';
                     }
                     break;
                 }
             default:
                 {
-                    $this->mensagemDeErro = 'Ação não reconhecida';
-                    $falta = '';
+                    $this->mensagemDeErro[] = 'Ação não reconhecida';
                     $this->erros = true;
                     $this->entra = false;
                     break;
@@ -117,11 +131,11 @@ class ProdutoValidator
         }
         
         if ($this->entra) {
-            if (empty($valor)){
+            if (empty($valor)) {
                 $valor = 0;
             }
             // remover todos os caracteres nao numericos de $valor
-            if ( ! is_int($valor) ) {
+            if (! is_int($valor)) {
                 $valor = formatFloat($valor);
             } else {
                 $valor = formatarValor($valor);
@@ -129,7 +143,7 @@ class ProdutoValidator
             
             /* verifica se valor é mairo que 0 */
             if (($valor < 0)) {
-                $this->mensagemDeErro = $falta . '-> Valor tem que ser maior que 0';
+                $this->mensagemDeErro[] = 'Valor tem que ser maior que 0<br>';
                 $this->erros = true;
             }
             
@@ -139,14 +153,14 @@ class ProdutoValidator
             if ($cat == NULL) {
                 $cat = $ct->idPorDescricao($em, $categoria);
                 if ($cat == NULL) {
-                    $this->mensagemDeErro = $falta . '-> Categoria não encontrada';
+                    $this->mensagemDeErro[] = 'Categoria não encontrada<br>';
                     $this->erros = true;
                 }
             }
             /* verifica se as tags estao preenchidas */
             $tag = \explode(';', $tags);
             if ($tag == NULL) {
-                $this->mensagemDeErro = $falta . '-> Nenhuma tag encontrada';
+                $this->mensagemDeErro[] = 'Nenhuma tag encontrada<br>';
                 $this->erros = true;
             }
             foreach ($tag as $t) {
@@ -164,20 +178,18 @@ class ProdutoValidator
                         $this->tags[] = $tg[0];
                     }
                     // se existir eu adiciono na lista
-                    
                 } else {
-                    $this->mensagemDeErro = $falta . '-> Erro ao informar as tags';
+                    $this->mensagemDeErro[] = 'Erro ao informar as tags<br>';
                     $this->erros = true;
                 }
             }
         }
         
         if ($this->erros) {
-            $this->mensagemDeErro = $this->mensagemDeErro . $falta;
             return false;
         }
         
-        $this->mensagemDeErro = 'OK';
+        $this->mensagemDeErro[] = 'OK';
         
         if (($acao !== 'listar')) {
             $this->produto = new Produto();
@@ -189,12 +201,15 @@ class ProdutoValidator
                 $this->produto->setDescricao($descricao);
                 $this->produto->setIdCategoria($cat);
                 $this->produto->setValor($valor);
+//                 if ($imagem != 'api') {
+                    $this->produto->setImagem($imagem);
+//                 }
                 foreach ($this->tags as $tg) {
                     $this->produto->addTags($tg);
                 }
             }
             if (! isset($this->produto)) {
-                $this->mensagemDeErro = 'Produto não encontrado';
+                $this->mensagemDeErro[] = 'Produto não encontrado<br>';
                 return false;
             }
         }
@@ -211,7 +226,10 @@ class ProdutoValidator
 
     public function mensagemDeErro()
     {
-        return $this->mensagemDeErro;
+        foreach ($this->mensagemDeErro as $msg) {
+            $m = $msg . $msg;
+        }
+        return $m;
     }
 }
 

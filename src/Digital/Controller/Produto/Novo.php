@@ -18,7 +18,7 @@ if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
     $t = substr($t, 0, strlen($t)-1);
 
     $validator = new ProdutoValidator();
-    if (!$validator->validar($em, 'inserir', '', $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor'], $t)) {
+    if (!$validator->validar($em, 'inserir', '', $_POST['nome'], $_POST['descricao'], $_POST['categoria'], $_POST['valor'], $_FILES['imagem']['name'], $t)) {
         $dados['erros'] = $validator->mensagemDeErro();
         echo $twig->render('produto/novo.incompleto.twig', $dados);
         exit();

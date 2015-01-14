@@ -78,8 +78,12 @@ class CategoriaApiController
             if (! $validator->validar($app['em'], 'deletar', $id)) {
                 return $app->json($validator->mensagemDeErro());
             }
+            try {
+                $result = $service->remove($app['em'], $validator->getCategoria());
+            } catch (Exception $e) {
+                return $app->json("Falha ao remover a categoria com o id {$id}");
+            }
             
-            $result = $service->remove($app['em'], $validator->getCategoria());
             if ($result) {
                 return $app->json('Categoria excluida com sucesso');
             } else {

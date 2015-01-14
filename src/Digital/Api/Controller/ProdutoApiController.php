@@ -57,7 +57,7 @@ class ProdutoApiController
                 return $app->json('Categoria não informada');
             }
             
-            if (! $validator->validar($app['em'], 'inserir', '', $request->get('nome'), $request->get('descricao'), $cat, $request->get('valor'),$request->get('tags'))) {
+            if (! $validator->validar($app['em'], 'inserir', '', $request->get('nome'), $request->get('descricao'), $cat, $request->get('valor'),'',$request->get('tags'))) {
                 return $app->json($validator->mensagemDeErro());
             }
             $result = $service->persist($app['em'], $validator->getProduto());
@@ -75,7 +75,7 @@ class ProdutoApiController
             if (is_null($cat)) {
                 return $app->json('Categoria não informada');
             }
-            if (! $validator->validar($app['em'], 'atualizar', $id, $request->get('nome'), $request->get('descricao'), $cat, $request->get('valor'),$request->get('tags'))) {
+            if (! $validator->validar($app['em'], 'atualizar', $id, $request->get('nome'), $request->get('descricao'), $cat, $request->get('valor'),'',$request->get('tags'))) {
                 return $app->json($validator->mensagemDeErro());
             }
             $prod = $validator->getProduto();
