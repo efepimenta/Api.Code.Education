@@ -1,22 +1,30 @@
 <?php
-
 namespace Digital\Service;
 
-use Digital\Database;
+use Digital\DatabaseDoctrine;
+use Doctrine\ORM\EntityManager;
 
-class RotaService
+class RotaService extends DatabaseDoctrine
 {
 
+    private $class;
+
+    public function __construct()
+    {
+        
+        /* classe que o doctrine vai mapear */
+        $this->class = 'Digital\Entity\Rota';
+        parent::setClass($this->class);
+    }
+
     /**
-     * Reotrna a uri atual, com ou sem o .
-     * php
+     * Reotrna a uri atual, com ou sem o '.'
      *
-     * @param bool $dotPHP
+     * @param bool $dotPHP            
      * @return string
      */
     function currentUri($dotPHP = false)
     {
-
         $pagina = '';
         $uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
         $query_str = filter_input(INPUT_SERVER, 'QUERY_STRING');
@@ -37,22 +45,45 @@ class RotaService
             $pagina = substr($pagina, 1);
             return $dotPHP ? $pagina . '.php' : $pagina;
         }
+    }
 
+    /**
+     * Recebe o ID da rota
+     *
+     * @param EntityManager $em            
+     * @param unknown $uri            
+     */
+    public function idPorUri(EntityManager $em, $uri)
+    {
+        $rp = $em->getRepository($this->class);
+        return $rp->idPorUri($uri);
+    }
+
+    /**
+     * Recebe a uri da Rota
+     * 
+     * @param EntityManager $em            
+     * @param unknown $id            
+     */
+    public function uriPorId(EntityManager $em, $id)
+    {
+        $rp = $em->getRepository($this->class);
+        return $rp->uriPorId($id);
     }
 
     /**
      * Verifica se a rota passada existe
-     *
-     * @param string $uri
-     * @param Database $database
+     * 
+     * @param EntityManager $em            
+     * @param unknown $uri            
+     * @return boolean
      */
-    function routeExists($uri, Database $database)
+    function routeExists(EntityManager $em, $uri)
     {
-
-        $sql = 'select rota from rotas where rota = "' . $uri . '"';
-        $result = $database->select($sql, true, []);
-        return is_array($result);
-
+        $rota = $this->idPorUri($em, $uri);
+        if (\count($rota) == 0) {
+            return false;
+        }
+        return true;
     }
-
 }

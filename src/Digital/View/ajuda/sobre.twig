@@ -13,9 +13,9 @@
     <b>Listar um produto:</b>
     {{ path() }}api/produto/ID
     <b>Inserir um produto:</b>
-    {{ path() }}api/produto/ -> usar POST -> (nome=?, descricao=?, categoria=?(passar um ID), valor=?)
+    {{ path() }}api/produto/ -> usar POST -> (nome=?, descricao=?, categoria=?(passar um ID), valor=?,tags=?(separados por ;))
     <b>Alterar um produto</b>
-    {{ path() }}api/produto/ID -> usar PUT -> (nome=?, descricao=?, categoria=?(passar um ID), valor=?) (usar x-www-form-urlencoded)
+    {{ path() }}api/produto/ID -> usar PUT -> (nome=?, descricao=?, categoria=?(passar um ID), valor=?,tags=?(separados por ;)) (usar x-www-form-urlencoded)
     <b>Excluir um produto:</b>
     {{ path() }}api/produto/ID -> usar DELETE
     
@@ -29,5 +29,16 @@
     {{ path() }}api/categoria/ID -> usar PUT -> (nome=?, descricao=?) (usar x-www-form-urlencoded)
     <b>Excluir uma categoria:</b>
     {{ path() }}api/categoria/ID -> usar DELETE
+    
+    <b>Listar todas as tags:</b>
+    {{ path() }}api/tag
+    <b>Listar uma tag:</b>
+    {{ path() }}api/tag/ID
+    <b>Inserir uma tag:</b>
+    {{ path() }}api/tag/ -> usar POST -> (tag=?)
+    <b>Alterar uma tag</b>
+    {{ path() }}api/tag/ID -> usar PUT -> (tag=?) (usar x-www-form-urlencoded)
+    <b>Excluir uma tag:</b>
+    {{ path() }}api/tag/ID -> usar DELETE
 </pre>
 {% include 'footer.twig' %}

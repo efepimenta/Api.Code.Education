@@ -13,7 +13,7 @@ $cache = new Doctrine\Common\Cache\ArrayCache ();
 $annotationReader = new Doctrine\Common\Annotations\AnnotationReader ();
 $cachedAnnotationReader = new Doctrine\Common\Annotations\CachedReader ( $annotationReader, $cache );
 $annotationDriver = new Doctrine\ORM\Mapping\Driver\AnnotationDriver ( $cachedAnnotationReader, array (
-		__DIR__ . DIRECTORY_SEPARATOR . '../src'
+		__DIR__ . DIRECTORY_SEPARATOR . '../src/Digital/Entity'
 ) );
 $driverChain = new Doctrine\ORM\Mapping\Driver\DriverChain ();
 $driverChain->addDriver ( $annotationDriver, 'Digital' );
@@ -35,3 +35,4 @@ $em = EntityManager::create ( array (
 		'password' => 'root',
 		'dbname' => 'site'
 ), $config, $evm );
+return $em;

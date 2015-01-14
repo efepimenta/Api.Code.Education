@@ -1,53 +1,58 @@
 <?php
-
 namespace Digital\Service;
 
-use Digital\Database;
+use Doctrine\ORM\EntityManager;
+use Digital\DatabaseDoctrine;
 
-class LoginService
+class LoginService extends DatabaseDoctrine
 {
+
+    private $class;
+
+    public function __construct()
+    {
+        
+        /* classe que o doctrine vai mapear */
+        $this->class = 'Digital\Entity\Usuario';
+        parent::setClass($this->class);
+    }
 
     /**
      * Cria as sessões e os Cookies (se criarCookies for true)
      *
-     * @param array $data
-     * @param string $criarCookies
+     * @param array $data            
+     * @param string $criarCookies            
      */
     public function criarSessoes(array $data, $criarCookies = FALSE)
     {
-
         foreach ($data as $key => $value) {
             $_SESSION[$key] = $value;
             if ($criarCookies) {
                 setcookie($key, $value, time() + 3600, '/');
             }
         }
-
     }
 
     /**
-     * Faz o login no sistema
-     *
-     * @param Database $database
-     * @param unknown $login
-     * @param unknown $senha
+     * Faz o Login no Sistema
+     * 
+     * @param EntityManager $em            
+     * @param unknown $login            
+     * @param unknown $senha            
      * @return boolean
      */
-    public function login(Database $database, $login, $senha)
+    public function login(EntityManager $em, $login, $senha)
     {
-
-        $sql = 'SELECT login,senha FROM usuarios WHERE login = :login';
-        $values = ['login' => [$login => \PDO::PARAM_STR]];
-        $result = $database->select($sql, true, $values);
-        if (isset($result['login'])) {
-            if (password_verify($senha, $result['senha'])) {
-                $this->criarSessoes(['user' => $_POST['login']]);
-                return true;
-            }
+        $rp = $em->getRepository($this->class);
+        $result = $rp->login($login, $senha);
+        if ($result) {
+            $this->criarSessoes([
+                'user' => $_POST['login']
+            ]);
+            return true;
+        } else {
             return false;
         }
-        return false;
-
     }
 
     /**
@@ -57,7 +62,6 @@ class LoginService
      */
     public function logout()
     {
-
         try {
             if (isset($_COOKIE['user'])) {
                 setcookie('user', '', time() - 3600, '/');
@@ -68,7 +72,6 @@ class LoginService
         } catch (Exception $e) {
             return false;
         }
-
     }
 
     /**
@@ -78,12 +81,9 @@ class LoginService
      */
     public function logado()
     {
-
         if ((isset($_SESSION['user'])) || (isset($_COOKIE['user']))) {
             return true;
         }
         return false;
-
     }
-
 }

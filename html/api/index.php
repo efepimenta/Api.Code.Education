@@ -3,6 +3,7 @@
 // use Symfony\Component\HttpFoundation\Response;
 use Digital\Api\Controller\ProdutoApiController;
 use Digital\Api\Controller\CategoriaApiController;
+use Digital\Api\Controller\TagApiController;
 
 require_once __DIR__ . '/../../src/bootstrap.php';
 
@@ -29,5 +30,8 @@ $app->mount('/produto/', $produto->getController($app));
 
 $categoria = new CategoriaApiController();
 $app->mount('/categoria/', $categoria->getController($app));
+
+$tag = new TagApiController();
+$app->mount('/tag/', $tag->getController($app));
 
 $app->run();

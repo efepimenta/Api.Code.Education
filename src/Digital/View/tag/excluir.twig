@@ -2,31 +2,27 @@
 {% if not logado %}
     <h4>Favor logar para fazer alterações</h4>
 {% else %}
-    <h1>Lista de Produtos</h1>
+    <h1>Lista de Tags</h1>
     <table class="table table-bordered table-striped">
         <tr>
+            <th>Id</th>
             <th>Nome</th>
-            <th>Descricao</th>
-            <th>Categoria</th>
-            <th>Valor</th>
             <th>Controle</th>
         </tr>
 
-        {% for produto in produtos %}
+        {% for tag in tags %}
             <tr>
-                <td>{{ produto.nome }}</td>
-                <td>{{ produto.descricao }}</td>
-                <td>{{ produto.idcategoria.descricao }}</td>
-                <td>R$: {{ produto.valor }}</td>
+                <td>{{ tag.id }}</td>
+                <td>{{ tag.tag }}</td>
                 <td>
                     <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-danger btn-xs"
-                            data-toggle="modal" data-target="#delete{{ produto.id }}">Excluir
+                            data-toggle="modal" data-target="#delete{{ tag.id }}">Excluir
                     </button>
                 </td>
-                <form action="{{ path() }}produto/excluir" method="post">
-                    <input type="hidden" name="id" value="{{ produto.id }}">
+                <form action="{{ path() }}tag/excluir" method="post">
+                    <input type="hidden" name="id" value="{{ tag.id }}">
                     <!-- Modal -->
-                    <div class="modal fade" id="delete{{ produto.id }}" tabindex="-1" role="dialog"
+                    <div class="modal fade" id="delete{{ tag.id }}" tabindex="-1" role="dialog"
                          aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -35,11 +31,11 @@
                                                 aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                                     </button>
                                     <h4 class="modal-title" id="myModalLabel">Editando
-                                        <strong>{{ produto.nome }}</strong></h4>
+                                        <strong>{{ tag.tag }}</strong></h4>
                                 </div>
                                 <div class="modal-body">
 
-                                    Deseja reamente remover <strong>{{ produto.nome }}</strong>?
+                                    Deseja reamente remover <strong>{{ tag.tag }}</strong>?
 
                                 </div>
                                 <div class="modal-footer">
@@ -56,7 +52,5 @@
     </table>
     <br>
 {% endif %}
-
-{% include 'paginator.twig' %}
 
 {% include 'footer.twig' %}

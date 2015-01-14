@@ -31,6 +31,13 @@
                                             });
                                         })
                                     </script>
+                    {# aqui entra os checkbox de tags #}
+                    <label>Tags:</label><br>
+                    {% for tag in tags %}
+                    <label><input type="checkbox" name="tag{{ tag.id }}">{{ tag.tag }}</label>
+                        
+                    {% endfor %}
+                    <br>
                     <button name="salvar" type="submit" class="btn btn-primary" {% if not logado %}disabled="disabled"{% endif %}>
                         Salvar
                     </button>

@@ -1,7 +1,11 @@
 <?php
 use Digital\Paginator;
+use Doctrine\ORM\EntityManager;
 
-/* define a quantidade de botoes a serem usados no paginator */
+/**
+ * define a quantidade de botoes a serem usados no paginator
+ * @param Paginator $paginator
+ */
 function defineBotoes(Paginator $paginator)
 {
 

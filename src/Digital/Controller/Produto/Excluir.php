@@ -47,8 +47,12 @@ if ((isset($_POST['acao'])) && ($_POST['acao'] === 'excluir')) {
         $p->setValor(formatarValor($p->getValor()));
         $prod[$p->getId()] = $p;
     }
-    $dados['produtos'] = $prod;
     defineBotoes($paginator);
+    if (isset($prod)) {
+        $dados ['produtos'] = $prod;
+    } else {
+        $paginator->setPaginadorAtivo(false);
+    }
     $dados['paginator'] = $paginator;
     echo $twig->render("produto/excluir.twig", $dados);
     unset($dados['produtos']);

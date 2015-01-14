@@ -41,9 +41,10 @@ class ProdutoService extends DatabaseDoctrine
         try {
             $up = $em->getReference($this->class, $entity->getId());
             $up->setNome($entity->getNome());
-            $up->setId_categoria($entity->getId_categoria());
+            $up->setIdCategoria($entity->getIdCategoria());
             $up->setDescricao($entity->getDescricao());
             $up->setValor($entity->getValor());
+            $up->setTags($entity->getTags());
             $em->persist($up);
             $em->flush();
             return true;

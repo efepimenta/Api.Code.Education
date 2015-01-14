@@ -1,39 +1,46 @@
 <?php
-
 namespace Digital\Service;
 
-use Digital\Database;
+use Doctrine\ORM\EntityManager;
+use Digital\DatabaseDoctrine;
 
-class MenuService
+class MenuService extends DatabaseDoctrine
 {
-    private $database;
 
-    public function __construct(Database $database)
+    private $class;
+
+    public function __construct()
     {
-
-        $this->database = $database;
-
+        
+        /* classe que o doctrine vai mapear */
+        $this->class = 'Digital\Entity\Menu';
+        parent::setClass($this->class);
     }
 
     /**
      * Monta um menu estilo bootstrap com os dados da tabela
      *
-     * @param Database $database
-     * @return array
+     * @param EntityManager $em            
      */
-    function montaMenu()
+    function montaMenu(EntityManager $em)
     {
-
-        $result = $this->database->select('SELECT nome,kind,sequencia,posicao,imagem,
-				(select rota from rotas where id = menu.id_rota) as rota,fim  FROM menu
- 				ORDER BY sequencia,posicao');
-        $menu = null;
-        foreach ($result as $res) {
-            $menu[$res['sequencia']][] = $res;
-            // sort($menu[$res['sequencia']],SORT_ASC);
+        $rotaservice = new RotaService();
+        $rp = $em->getRepository($this->class);
+        foreach ($rp->montaMenu() as $mnu) {
+            $menu[$mnu->getId()]['nome'] = $mnu->getNome();
+            $menu[$mnu->getId()]['kind'] = $mnu->getKind();
+            $menu[$mnu->getId()]['sequencia'] = $mnu->getSequencia();
+            $menu[$mnu->getId()]['posicao'] = $mnu->getPosicao();
+            $menu[$mnu->getId()]['imagem'] = $mnu->getImagem();
+            $menu[$mnu->getId()]['fim'] = $mnu->getFim();
+            // tratamento se a rota estivre vazia
+            $rota = $rotaservice->uriPorId($em, $mnu->getIdRota());
+            if (\count($rota)) {
+                $menu[$mnu->getId()]['rota'] = $rota[0]->getRota();
+            } else {
+                $menu[$mnu->getId()]['rota'] = '#';
+            }
         }
         return $menu;
-
     }
-
 }

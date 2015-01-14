@@ -70,7 +70,10 @@
                         </select>
                         <input type="hidden" name="p" value="p">
                         <button type="submit" class="btn btn-primary" name="pag">Buscar</button>
-                        <span class="badge">{{ paginator.resultadosEncontrados }}</span>
+                        <span class="badge">{{ paginator.resultadosEncontrados }}</span><br>
+                        Busca por Tags: {% for tag in tags %}
+                        <a href="produto?p=p&campo=tag&tag={{ tag.tag }}"><span class="label label-primary">{{ tag.tag }}</span></a>
+                        {% endfor %}
                     </div>
                 </form>
             </div>
@@ -82,17 +85,23 @@
     {% for produto in produtos %}
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="thumbnail">
-                <img data-src="holder.js/50x50" src="{{ produto.imagem }}" alt="{{ produto.nome }}">
+                <img src="{{ produto.imagem }}" alt="{{ produto.nome }}">
 
                 <div class="caption">
                     <h3>{{ produto.nome }}</h3>
 
                     <p>{{ produto.descricao }}</p>
+                    <b>Categoria:</b><br>
+                    <p>{{ produto.idcategoria.descricao }}</p>
 
                     <p>Custa só R$ {{ produto.valor }}</p>
+                    <p>{% for tag in produto.tags %}<a href="produto?p=p&campo=tag&tag={{ tag.tag }}"><span class="label label-primary">{{ tag.tag }}</span></a> {% endfor %}</p>
                 </div>
+                
             </div>
+            
         </div>
+        
     {% endfor %}
 </div>
 

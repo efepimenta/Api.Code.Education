@@ -26,7 +26,7 @@
             <tr>
                 <td>{{ produto.nome }}</td>
                 <td>{{ produto.descricao }}</td>
-                <td>ID: {{ produto.id_categoria.id }} - Desc: {{ produto.id_categoria.descricao }}</td>
+                <td>{{ produto.idcategoria.descricao }}</td>
                 <td>R$ {{ produto.valor }}</td>
                 <td>
                     <button {% if not logado %}disabled="disabled"{% endif %} class="btn btn-primary btn-xs"
@@ -55,11 +55,11 @@
                                                             value="{{ produto.descricao }}"></label><br>
                                     <label>Categorias: <select name="categoria" class="form-control">
                                             {% for cat in categorias %}
-                                                <option {% if produto.id_categoria.descricao == cat.descricao %}selected="selected" {% endif %}>{{ cat.descricao }}</option>
+                                                <option {% if produto.idcategoria.descricao == cat.descricao %}selected="selected" {% endif %}>{{ cat.descricao }}</option>
                                             {% endfor %}
                                         </select></label><br>
                                     <label>Valor:<input id="vl{{ produto.id }}" class="form-control" type="text"
-                                                        name="valor" value={{ produto.valor }}></label>
+                                                        name="valor" value={{ produto.valor }}></label><br>
                                     <script type="text/javascript">
                                         $(function () {
                                             $("#vl{{ produto.id }}").maskMoney({
@@ -71,6 +71,11 @@
                                             });
                                         })
                                     </script>
+                                    {# aqui entra os checkbox de tags #}
+                                    <label>Tags:</label><br>
+                                    {% for tag in tags %}
+                                        <label><input type="checkbox" name="tag{{ tag.id }}">{{ tag.tag }}</label>
+                                    {% endfor %}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

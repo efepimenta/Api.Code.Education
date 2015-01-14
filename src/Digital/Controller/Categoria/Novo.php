@@ -13,7 +13,7 @@ if ((isset($_POST['acao'])) and ($_POST['acao'] === 'salvar')) {
         exit();
     }
 
-    $service = new CategoriaService($database);
+    $service = new CategoriaService();
     $categoria = $validator->getCategoria();
 
     try {

@@ -1,7 +1,5 @@
 ## Agora é a vez do doctrine...  
 
-#Atenção: A classe Database e seus respectivos usos serao removidos em breve#
-
 rodar o fixture antes  
 
 A paginacao esta na busca por produtos via busca avancada.  
@@ -12,6 +10,11 @@ em breve ajustarei a parte visual, ja que tambem existem bugs.
 
 devo estar criando um sistema de bugs...  
 
-obs: alguns services ainda usam a PDO, mas ja ja eu removo  
+A categoria informada via api deve ser inteiro, nao string  
 
-A categoria informada via api deve ser inteiro, nao string
+##-- NOVAS INFORMAÇÔES --
+
+A dependencia do PDO foi removida, tornando o projeto inteiramente doctrine  
+
+O produto agora necessita das tags. Pela api, elas devem ser separadas por ;  
+Se a tag nao existir, ela será criada..

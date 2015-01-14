@@ -1,10 +1,9 @@
 <?php
-use Digital\Database;
 
 if (isset($_POST['controle'])) {
     if ($_POST['controle'] === 'entrar') {
         // faz as coisas de entrar
-        if ($loginService->login(new Database($driver), $_POST['login'], $_POST['senha'])) {
+        if ($loginService->login($em, $_POST['login'], $_POST['senha'])) {
             // devolve a pagina que o cabra tava
             header("Location:http://{$_SERVER['HTTP_HOST']}/{$_POST['uri']}");
         } else {
