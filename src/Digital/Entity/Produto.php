@@ -36,7 +36,7 @@ class Produto implements PersistentInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Digital\Entity\Categoria")
-     * @ORM\JoinColumn(name="id_categoria", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_categoria", referencedColumnName="id",onDelete="SET NULL")
      */
     private $id_categoria;
 
@@ -54,7 +54,7 @@ class Produto implements PersistentInterface
      * @ORM\ManyToMany(targetEntity="Digital\Entity\Tag")
      * @ORM\JoinTable(name="tags_produto",
      * joinColumns={@ORM\JoinColumn(name="produto_id", referencedColumnName="id")},
-     * inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
+     * inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id",onDelete="CASCADE")}
      * )
      */
     private $tags;
