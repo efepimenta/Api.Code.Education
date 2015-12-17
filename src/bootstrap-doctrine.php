@@ -31,8 +31,8 @@ $em = EntityManager::create ( array (
 		'driver' => 'pdo_mysql',
 		'host' => '127.0.0.1',
 		'port' => '3306',
-		'user' => 'root',
-		'password' => 'root',
+		'user' => 'fabio',
+		'password' => 'fabio123',
 		'dbname' => 'site'
 ), $config, $evm );
 return $em;
