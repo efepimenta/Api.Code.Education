@@ -4,71 +4,143 @@
         <title>{{ title }}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="{{ path() }}js/jquery-2.1.1.min.js"></script>
-        <script src="{{ path() }}js/jquery.maskMoney.js"></script>
-        <script src="{{ path() }}js/video-js/video.js"></script>
-        <link rel="stylesheet" href="{{ path() }}js/video-js/video-js.css">
-        <script src="{{ path() }}js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="{{ path() }}css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ path() }}plugins/video.js/video-js.min.css">
+        <link rel="stylesheet" href="{{ path() }}plugins/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ path() }}css/style.css">
+        <link rel="stylesheet" href="{{ path() }}css/style2.css">
+        <link rel="stylesheet" href="{{ path() }}plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="{{ path() }}plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
+        <link rel="stylesheet" href="{{ path() }}plugins/fileinput/css/fileinput.min.css">
+        <script src="{{ path() }}js/jquery-2.1.4.min.js"></script>
+        <script src="{{ path() }}js/jquery.maskMoney.js"></script>
+        <script src="{{ path() }}plugins/video.js/video.min.js"></script>
+        <script src="{{ path() }}plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="{{ path() }}plugins/select2/js/select2.min.js"></script>
+        <script src="{{ path() }}plugins/jquery-mask/mask.js"></script>
+        <script src="{{ path() }}js/script.js"></script>
     </head>
     <body>
-        <div class="container-fluid">
-            <nav class="navbar navbar-inverse" role="navigation">
-                <div class="container-fluid">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account
-                                <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <div class="navbar-content">
+
+        <div id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div id="logo" class="navbar-header"><a href="#"><img class="img-responsive" style="width: 250px; height: 50px; padding-top: 0px;" src="images/bat_peq.png"></a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse navbar-menubuilder">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="/products">Products</a>
+                    </li>
+                    <li><a href="/about-us">About Us</a>
+                    </li>
+                    <li><a href="/contact">Contact Us</a>
+                    </li>
+
+                    <li class="dropdown dropdown-large">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+
+                        <ul class="dropdown-menu dropdown-menu-large row">
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Glyphicons</li>
+                                    <li><a href="#">Available glyphs</a></li>
+                                    <li class="disabled"><a href="#">How to use</a></li>
+                                    <li><a href="#">Examples</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Dropdowns</li>
+                                    <li><a href="#">Example</a></li>
+                                    <li><a href="#">Aligninment options</a></li>
+                                    <li><a href="#">Headers</a></li>
+                                    <li><a href="#">Disabled menu items</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Button groups</li>
+                                    <li><a href="#">Basic example</a></li>
+                                    <li><a href="#">Button toolbar</a></li>
+                                    <li><a href="#">Sizing</a></li>
+                                    <li><a href="#">Nesting</a></li>
+                                    <li><a href="#">Vertical variation</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Button dropdowns</li>
+                                    <li><a href="#">Single button dropdowns</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Input groups</li>
+                                    <li><a href="#">Basic example</a></li>
+                                    <li><a href="#">Sizing</a></li>
+                                    <li><a href="#">Checkboxes and radio addons</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Navs</li>
+                                    <li><a href="#">Tabs</a></li>
+                                    <li><a href="#">Pills</a></li>
+                                    <li><a href="#">Justified</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Navbar</li>
+                                    <li><a href="#">Default navbar</a></li>
+                                    <li><a href="#">Buttons</a></li>
+                                    <li><a href="#">Text</a></li>
+                                    <li><a href="#">Non-nav links</a></li>
+                                    <li><a href="#">Component alignment</a></li>
+                                    <li><a href="#">Fixed to top</a></li>
+                                    <li><a href="#">Fixed to bottom</a></li>
+                                    <li><a href="#">Static top</a></li>
+                                    <li><a href="#">Inverted navbar</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="navbar-content">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <img src="http://placehold.it/120x120"
+                                                 alt="Alternate Text" class="img-responsive" />
+                                            <p class="text-center small">
+                                                <a href="#">Change Photo</a></p>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <span>Bhaumik Patel</span>
+                                            <p class="text-muted small">
+                                                mail@gmail.com</p>
+                                            <div class="divider">
+                                            </div>
+                                            <a href="#" class="btn btn-primary btn-sm active">View Profile</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="navbar-footer">
+                                    <div class="navbar-footer-content">
                                         <div class="row">
-                                            <div class="col-md-5">
-                                                <img src="http://placehold.it/120x120"
-                                                     alt="Alternate Text" class="img-responsive" />
-                                                <p class="text-center small">
-                                                    <a href="#">Change Photo</a></p>
+                                            <div class="col-md-6">
+                                                <a href="#" class="btn btn-default btn-sm">Change Passowrd</a>
                                             </div>
-                                            <div class="col-md-7">
-                                                <span>Bhaumik Patel</span>
-                                                <p class="text-muted small">
-                                                    mail@gmail.com</p>
-                                                <div class="divider">
-                                                </div>
-                                                <a href="#" class="btn btn-primary btn-sm active">View Profile</a>
+                                            <div class="col-md-6">
+                                                <a href="http://www.jquery2dotnet.com" class="btn btn-default btn-sm pull-right">Sign Out</a>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="navbar-footer">
-                                        <div class="navbar-footer-content">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <a href="#" class="btn btn-default btn-sm">Change Passowrd</a>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <a href="http://www.jquery2dotnet.com" class="btn btn-default btn-sm pull-right">Sign Out</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    {# Links principais#}
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span> <span
-                                class="icon-bar"></span> <span class="icon-bar"></span> <span
-                                class="icon-bar"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <li><a class="navbar-brand" href="{{ path() }}">Home</a></li>
-                            </ul>
-                        </div>
-                        {% include 'menu.twig' %}
-                    </div>
-                </div>
-            </nav>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+        <div class="container-fluid padding-top">
+

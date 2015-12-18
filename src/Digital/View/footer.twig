@@ -1,17 +1,42 @@
 <div class="row clearfix">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="modal-footer">
-            <address class="pull-right">
-                <strong>Doctrine</strong><br>
-
-                <p>Todos os direitos reservados - {{ ano }}</p>
-            </address>
+    <div id="footer">
+        <div class="container-footer">
+            <div class="row-footer">
+                <h3 class="footertext">About Us:</h3>
+                <br>
+                <div class="col-md-4">
+                    <center>
+                        <img src="http://oi60.tinypic.com/w8lycl.jpg" class="img-circle" alt="the-brains">
+                        <br>
+                        <h4 class="footertext">Programmer</h4>
+                        <p class="footertext">You can thank all the crazy programming here to this guy.<br>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <img src="http://oi60.tinypic.com/2z7enpc.jpg" class="img-circle" alt="...">
+                        <br>
+                        <h4 class="footertext">Artist</h4>
+                        <p class="footertext">All the images here are hand drawn by this man.<br>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <img src="http://oi61.tinypic.com/307n6ux.jpg" class="img-circle" alt="...">
+                        <br>
+                        <h4 class="footertext">Designer</h4>
+                        <p class="footertext">This pretty site and the copy it holds are all thanks to this guy.<br>
+                    </center>
+                </div>
+            </div>
+            <div class="row-footer">
+                <p><center><a href="#">Contact Stuff Here</a> <p class="footertext">Copyright 2014</p></center></p>
+            </div>
         </div>
-    </nav>
+    </div>
 </div>
 
 </div>
-</body>
 <script>
     jQuery('ul.nav li.dropdown').hover(function () {
         jQuery(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
@@ -19,4 +44,5 @@
         jQuery(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut();
     });
 </script>
+</body>
 </html>
