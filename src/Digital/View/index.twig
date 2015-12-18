@@ -1,460 +1,60 @@
 {% include 'header.twig' %}
 
-
-<div class='row'>
-    <div class='col-lg-12 col-sm-12 div-padding-5px'>
-        <div class='panel panel-primary span13'>
-            <div class='panel-heading'>Criação de domínios</div>
-            <div class='panel-body'>
-                <div class='col-lg-12 col-sm-12 div-padding-5px'>
-                    <div class='col-lg-4 col-sm-4 center-text span15' style='margin-top: 15px'>Dados do Domínio</div>
-                    <div class='col-lg-8 col-sm-8'><hr class='soften-no-botton'></div>                    
-                    <div class='col-lg-12 col-sm-12 div-padding-5px'>
-                        <div class='col-lg-6 col-sm-6 div-padding-5px input-group-sm'>
-                            <label for='domain-provedor'>Template<span class='required'>*</span></label>
-                            <select class='form-control input-text-border js-example-basic-single' id='domain-provedor'>
-                                <?php echo $select; ?>
-                            </select>
-                        </div>
-                        <div class='col-lg-6 col-sm-6 div-padding-5px has-feedback input-group-sm'>
-                            <label for='dom-nome'>Nome<span class='required'>*</span><br></label>
-                            <i id='alert-dom-nome' class='glyphicon glyphicon glyphicon-remove form-control-feedback hidden input-error'></i>
-                            <input <?php echo $dis; ?> id='dom-nome' type='text' class='form-control input-text-border input-required' maxlength='32'>
-                        </div>
-                    </div>
-                    <div class='col-lg-12 col-sm-12 div-padding-5px'>
-                        <div class='col-lg-4 col-sm-4 div-padding-5px has-feedback input-group-sm'>
-                            <label for='domain-type'>Tipo<span class='required'>*</span><br></label>
-                            <select <?php echo $dis; ?> id='domain-type' class='form-control input-text-border js-example-basic-single'>
-                                <option value='M'>Master</option>
-                                <option value='S'>Slave</option>
-                                <option value='MS'>Master | Slave</option>
-                            </select>
-                            <script>$('.js-example-basic-single').select2({language: 'pt-BR'});</script>
-                        </div>
-                        <div class='col-lg-3 col-sm-3 div-padding-5px has-feedback input-group-sm'>
-                            <label for='domain-ip'>Ip<span id='sp-ip' class='required hidden'>*</span><br></label>
-                            <i id='alert-domain-ip' class='glyphicon glyphicon glyphicon-remove form-control-feedback hidden input-error'></i>
-                            <input <?php echo $dis; ?> id='domain-ip' type='text' class='form-control input-text-border ip' disabled='disabled'>
-                        </div>
-                        <div class='col-lg-1 col-sm-1 div-padding-5px input-group-sm'>
-                            <label for='status'>Status</label><br>
-                            <div class='checkbox checkbox-primary checkbox-inline'>
-                                <input id='status' class='form-control' type='checkbox' checked="" <?php echo $dis; ?>>
-                                <label for='status'>Ativo</label>
-                            </div>
-                        </div>
-                        <div class='col-lg-1 col-sm-1 div-padding-5px input-group-sm' style='padding-top: 30px'>
-                            <button <?php echo $dis; ?> id='btn-add' class='btn btn-info form-control btn-shadow'><span id='sp-dom' class='glyphicon glyphicon-plus'></span></button>
-                        </div>
+<div class="row" style="margin-bottom: 10px">
+    <div id="thumbnail-preview-indicators" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#thumbnail-preview-indicators" data-slide-to="0" class="active">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="images/wdXqHcTwSTmLuKOGz92L_Landscape.jpg">
+                </div>
+            </li>
+            <li data-target="#thumbnail-preview-indicators" data-slide-to="1">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="images/tU3ptNgGSP6U2fE67Gvy_SYDNEY-162.jpg">
+                </div>
+            </li>
+            <li data-target="#thumbnail-preview-indicators" data-slide-to="2">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="images/mtNrf7oxS4uSxTzMBWfQ_DSC_0043.jpg">
+                </div>
+            </li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item slides active">
+                <div class="slide-1"></div>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>New carousel layout</h1>
+                        <p>Responsive thumbnail preview in carousel indicators.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
                     </div>
                 </div>
-                <div class='col-lg-2 col-sm-2 center-text span15' style='margin-top: 15px'>Na lista</div>
-                <div class='col-lg-10 col-sm-10'><hr class='soften-no-botton'></div>
-                <div class='col-lg-12 col-sm-12 div-padding-5px'>
-                    <div id='div-ret' class='col-lg-12 col-sm-12 div-padding-5px'></div>
-                    <table id='tbl-dom' class='table table-bordered table-striped table-heading table-hover table-responsive input-text-border'>
-                        <thead class='table-heading'>
-                            <tr>
-                                <th style='width: 25%'>Domínio</th>
-                                <th style='width: 35%'>Atributos</th>
-                                <th style='width: 10%'>Tipo</th>
-                                <th style='width: 15%'>Ip</th>
-                                <th style='width: 5%'>Status</th>
-                                <th style='width: 10%'>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+            </div>
+            <div class="item slides">
+                <div class="slide-2"></div>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Another example headline.</h1>
+                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="item slides">
+                <div class="slide-3"></div>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>One more for good measure.</h1>
+                        <p>Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                    </div>
                 </div>
             </div>
         </div>
+        <a class="left carousel-control" href="#thumbnail-preview-indicators" role="button" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <a class="right carousel-control" href="#thumbnail-preview-indicators" role="button" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
 </div>
-
-<script>
-
-    $("#btn-add").click(function (e) {
-        e.preventDefault();
-        if (!validar()) {
-            return false;
-        }
-        if (call_domain_exists($("#dom-nome").prop('value'))) {
-            return false;
-        }
-        grava_domain();
-    });
-
-    function grava_domain() {
-        $("#div-ret").html(loader());
-        $.ajax({
-            mimeType: 'text/html; charset=utf-8',
-            url: "admin/domain/domain_add.php",
-            type: 'POST',
-            data: {provedor: $('#domain-provedor option:selected').attr('id'),
-                atributos: null, nome: $("#dom-nome").prop('value'),
-                tipo: $("#domain-type").prop('value'), ip: $("#domain-ip").prop('value'),
-                status: $("#status").prop('checked')},
-            dataType: "html",
-            async: false,
-            success: function (retorno) {
-                $("#div-ret").html('');
-                switch (retorno) {
-                    case '0':
-                        $('#div-ret').html("<div class='alert alert-warning fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Aviso!</strong> Domínio não foi inserido.</div>").removeClass('hidden');
-                        break;
-                    case '1':
-                        call_template_data($('#domain-provedor option:selected').attr('id'));
-                        limpa_campos();
-                        $('#div-ret').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>OK!</strong> Domínio inserido com sucesso.</div>").removeClass('hidden');
-                        break;
-                    default:
-                        $('#div-ret').html("<div class='alert alert-warning fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Aviso!</strong> " + retorno + ".</div>").removeClass('hidden');
-                        break;
-                }
-            },
-            error: function () {
-                $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Algo não está certo.</div>").removeClass('hidden');
-            }
-        });
-        $(".alert").delay(10000).slideUp(500, function () {
-            $(this).alert('close');
-        });
-    }
-
-    function call_template_data(id) {
-        $("#div-ret").removeClass('hidden').html(loader());
-        $.ajax({
-            mimeType: 'text/html; charset=utf-8',
-            url: "admin/domain/template_data.php",
-            type: 'POST',
-            data: {id: id},
-            dataType: "html",
-            async: false,
-            success: function (retorno) {
-                $("#div-ret").html('');
-                switch (retorno) {
-                    case '0':
-                        limpa_tudo();
-                        desabilita_campos();
-                        $("#div-ret").html("<div class='col-lg-12 col-sm-12 div-padding-5px'>" +
-                                "<div class='alert alert-danger fade in'>" +
-                                "<strong>Erro!</strong> Template para o domínio <strong>" + $("#domain-provedor").prop('value') + "</strong> não foi criado!" +
-                                "</div></div>");
-                        break;
-                    case '1':
-                        limpa_tudo();
-                        habilita_campos();
-                        $('#domain-provedor').prop('disabled', false);
-                        call_domain_data($('#domain-provedor option:selected').attr('id'));
-                        break;
-                    default:
-                        limpa_tudo();
-                        desabilita_campos();
-                        break;
-                }
-            },
-            error: function () {
-                $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Algo não está certo.</div>").removeClass('hidden');
-            }
-        });
-    }
-
-    function limpa_campos() {
-        $('#dom-nome').prop('value', '');
-        $('#domain-ip').prop('value', '');
-        $('#alert-dom-nome').addClass('hidden');
-        $('#domain-type').prop('value', '');
-        $('#alert-domain-type').addClass('hidden');
-        $('#alert-domain-ip').addClass('hidden');
-        $('#sp-dom').addClass('glyphicon-plus').removeClass('glyphicon-ok');
-        $('.alert').alert('close');
-        $("#enabled").prop('checked', true);
-    }
-
-    function removeRow(id) {
-        if (confirm('Isso apaga todos os dados vinculados, continuar?')) {
-            if (delete_domain(id)) {
-                call_template_data($('#domain-provedor option:selected').attr('id'));
-                $('#div-ret').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>OK!</strong> Domínio excluído com sucesso.</div>");
-            }
-        }
-    }
-
-    function delete_domain(id) {
-        var ok = false;
-        $("#div-ret").html(loader());
-        $.ajax({
-            mimeType: 'text/html; charset=utf-8',
-            url: "admin/domain/domain_del.php",
-            type: 'POST',
-            data: {id: id},
-            dataType: "html",
-            async: false,
-            success: function (retorno) {
-                $("#div-ret").html('');
-                switch (retorno) {
-                    case '0':
-                        $('#div-ret').html("<div class='alert alert-warning fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Aviso!</strong> Domínio não foi excluído.</div>").removeClass('hidden');
-                        break;
-                    case '1':
-                        ok = true;
-                        break;
-                    default:
-                        $('#div-ret').html("<div class='alert alert-warning fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Aviso!</strong> " + retorno + ".</div>").removeClass('hidden');
-                        break;
-                }
-                $(".alert").delay(10000).slideUp(500, function () {
-                    $(this).alert('close');
-                });
-            },
-            error: function () {
-                $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Algo não está certo.</div>").removeClass('hidden');
-            }
-        });
-        return ok;
-    }
-    //fazer
-    function editRow(id, row) {
-        desabilita_campos();
-        $('#tbl-isp-domain tbody tr').each(function () {
-            $(this).removeClass('span15').removeAttr('style');
-        });
-        $('#tbl-isp-domain tbody tr td button').each(function () {
-            $(this).attr('disabled', true);
-        });
-        var botoes = $('#dom-action-' + row).html();
-        var nome = $('#dom-nome-' + row).html();
-        var attr = $('#dom-attr-' + row).html();
-        var type = $('#dom-type-' + row).html(); //
-        var ip = $('#dom-ip-' + row).html();
-        var status = $('#dom-status-' + row).html();
-        var status_check = $("#dom-status-" + row).children('input:radio').prop('checked');
-        var tpy = $('#dom-type-' + row).html();
-        
-        $('#dom-nome-' + row).html("<input id='dom-nome-hid' type='hidden' value = '" + nome + "'><input id='name' value='" + nome + "' type='text' class='form-control input-text-border'>");
-        $('#dom-attr-' + row).html("<input id='dom-attr-hid' type='hidden' value = '" + attr + "'><input id='attr' value='" + attr + "' type='text' class='form-control input-text-border'>");
-        $('#dom-ip-' + row).html("<input id='dom-ip-hid' type='hidden' value = '" + ip + "'><input id='ip' value='" + ip + "' type='text' class='form-control input-text-border'>");
-        $('#dom-status-' + row).html("<input id='dom-status-hid' type='hidden' value = '" + status + "'><input type='checkbox' id='sts'>");
-        $('#dom-type-' + row).html("<input id='dom-type-hid' type='hidden' value = '" + type + "'><select id='type' class='form-control input-text-border js-example-basic-single'><option value='M'>Master</option><option value='S'>Slave</option><option value='MS'>Master | Slave</option></select>");
-        $('#dom-action-' + row).html("<input id='dom-action-hid' type='hidden' value = '" + botoes + "'><button id='add' class='btn btn-warning' onclick='edita_domain(" + id + ")'><span class='glyphicon glyphicon-ok'></span></button><button id='del' class='btn btn-danger' onclick='clear_row(" + row + ")'><span class='glyphicon glyphicon-remove'></span></button>");
-        $('.js-example-basic-single').select2({language: 'pt-BR'});
-        $('#type option[value="'+tpy+'"]').prop('selected', true).trigger("change");
-
-    if (status_check) {
-            $('#sts').prop('checked', true);
-        }
-
-        $("#add").prop('disabled', false);
-        $("#del").prop('disabled', false);
-        $('#dom_' + row).addClass('span15').attr('style', 'color:red');
-    }
-    
-    function clear_row(row) {
-        $('#dom-nome-' + row).html($("#dom-nome-hid").prop('value'));
-        $('#dom-attr-' + row).html($("#dom-attr-hid").prop('value'));
-        $('#dom-ip-' + row).html($("#dom-ip-hid").prop('value'));
-        $('#dom-status-' + row).html($("#dom-status-hid").prop('value'));
-        $('#dom-type-' + row).html($("#dom-type-hid").prop('value'));
-        $('#dom-action-' + row).html($("#dom-action-hid").prop('value'));
-        $('#tbl-dom tbody tr').each(function () {
-            $(this).removeClass('span15').removeAttr('style');
-        });
-        $('#tbl-dom tbody tr td button').each(function () {
-            $(this).attr('disabled', false);
-        });
-        habilita_campos();
-    }
-
-
-    function edita_domain(id) {
-        //TODO: validar antes de enviar
-        $("#div-ret").html(loader());
-        $.ajax({
-            mimeType: 'text/html; charset=utf-8',
-            url: "admin/domain/domain_edit.php",
-            type: 'POST',
-            data: {id: id, nome: $("#name").prop('value'),
-                provedor: $('#domain-provedor option:selected').attr('id'),
-                attr: $("#attr").prop('value'), ip: $("#ip").prop('value'),
-                status: $("#sts").prop('checked'), type: $("#type").prop('value')},
-            dataType: "html",
-            async: false,
-            success: function (retorno) {
-                $("#div-ret").html('');
-                switch (retorno) {
-                    case '0':
-                        $('#div-ret').html("<div class='alert alert-warning fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Aviso!</strong> Domínio não foi alterado.</div>").removeClass('hidden');
-                        break;
-                    case '1':
-                        call_domain_data();
-                        habilita_campos();
-                        limpa_campos();
-                        $('#div-ret').html("<div class='alert alert-success fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>OK!</strong> Domínio alterado com sucesso.</div>").removeClass('hidden');
-                        break;
-                    default:
-                        $('#div-ret').html("<div class='alert alert-warning fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Aviso!</strong> " + retorno + ".</div>").removeClass('hidden');
-                        break;
-                }
-            },
-            error: function () {
-                $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Algo não está certo.</div>").removeClass('hidden');
-            }
-        });
-        $(".alert").delay(10000).slideUp(500, function () {
-            $(this).alert('close');
-        });
-    }
-
-    function validar() {
-        var ok = true;
-        //verifica se ip esta duplicado na lista
-        $('.ip').each(function () {
-            if ($(this).hasClass('input-required')) {
-                if (!valida_ip($(this).prop('value'))) {
-                    $(this).removeClass('input-text-border').addClass('input-text-error');
-                    $('#alert-' + $(this).attr('id')).removeClass('hidden glyphicon-ok input-ok').addClass('glyphicon-remove input-error');
-                    ok = false;
-                    return;
-                } else {
-                    $(this).removeClass('input-text-error').addClass('input-text-border');
-                    $('#alert-' + $(this).attr('id')).removeClass('hidden glyphicon-remove input-error').addClass('glyphicon-ok input-ok');
-                }
-            }
-        });
-        //validacao dos campos obrigatorios
-        $('.input-required').each(function () {
-            if ($(this).prop('value') === '') {
-                $(this).removeClass('input-text-border').addClass('input-text-error');
-                $('#alert-' + $(this).attr('id')).removeClass('hidden');
-                ok = false;
-            }
-        });
-        if (!ok) {
-            $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Campos marcados com <strong>*</string> são obrigatórios</div>").removeClass('hidden');
-            $(".alert").delay(10000).slideUp(500, function () {
-                $(this).alert('close');
-            });
-        }
-        return ok;
-    }
-
-    function call_domain_data(id) {
-        $("#div-ret").removeClass('hidden').html(loader());
-        $.ajax({
-            mimeType: 'text/html; charset=utf-8',
-            url: "admin/domain/domain_data.php",
-            type: 'POST',
-            data: {id: id},
-            dataType: "html",
-            async: false,
-            success: function (retorno) {
-                $("#div-ret").html('');
-                $("#tbl-dom tbody").html(retorno);
-            },
-            error: function () {
-                $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Algo não está certo.</div>").removeClass('hidden');
-            }
-        });
-    }
-
-    function habilita_campos() {
-        $("#dom-nome").prop('disabled', false).addClass('input-required');
-        $("#domain-type").prop('disabled', false);
-        $("#btn-add").prop('disabled', false);
-        $("#status").prop('disabled', false);
-        $("#domain-provedor").prop('disabled', false);
-        $('.alert').alert('close');
-    }
-
-    function desabilita_campos() {
-        $("#dom-nome").prop('disabled', true).removeClass('input-required');
-        $("#domain-type").prop('disabled', true);
-        $("#btn-add").prop('disabled', true);
-        $("#status").prop('disabled', true);
-        $("#domain-provedor").prop('disabled', true);
-        $('.alert').alert('close');
-    }
-
-    function limpa_tudo() {
-        limpa_campos();
-        $("#tbl-dom tbody").html('');
-        $('#domain-provedor').prop('disabled', false);
-    }
-
-    $('#domain-provedor').change(function () {
-        call_template_data($('#domain-provedor option:selected').attr('id'));
-    });
-
-    function call_domain_exists(domain) {
-        var exists = false;
-        if (!validaDominio('dom-nome')) {
-            return false;
-        }
-        $("#div-ret").removeClass('hidden').html(loader());
-        $.ajax({
-            mimeType: 'text/html; charset=utf-8',
-            url: "admin/domain/domain_exists.php",
-            type: 'POST',
-            data: {domain: domain},
-            dataType: "html",
-            async: false,
-            success: function (retorno) {
-                if (retorno === '1') {
-                    exists = true;
-                    $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Domínio já está cadastrado.</div>").removeClass('hidden');
-                }
-            },
-            error: function () {
-                exists = true;
-                $('#div-ret').html("<div class='alert alert-danger fade in'><a href='#' class='close' data-dismiss='alert'>&times;</a><strong>Erro!</strong> Algo não está certo.</div>").removeClass('hidden');
-            }
-        });
-        $(".alert").delay(10000).slideUp(500, function () {
-            $(this).alert('close');
-        });
-        return exists;
-    }
-
-    $('.input-required').keypress(function () {
-        if ($(this).prop('value') !== '') {
-            $(this).removeClass('input-text-error').addClass('input-text-border');
-            fechar_alert($('#alert-' + $(this).attr('id')));
-        }
-    });
-
-    $('#domain-type').change(function () {
-        if ($(this).prop('value') !== 'M') {
-            $('#domain-ip').prop('disabled', false).focus().addClass('input-required');
-            $('#sp-ip').removeClass('hidden');
-        } else {
-            $('#domain-ip').prop('disabled', true).prop('value', '').removeClass('input-required').addClass('input-text-border');
-            $('#alert-domain-ip').addClass('hidden');
-            $('#sp-ip').addClass('hidden');
-        }
-    });
-
-    $('.ip').blur(function () {
-        if ($(this).prop('value') !== '') {
-            if (!valida_ip($(this).prop('value'))) {
-                $(this).removeClass('input-text-border').addClass('input-text-error');
-                $('#alert-' + $(this).attr('id')).removeClass('hidden glyphicon-ok input-ok').addClass('glyphicon-remove input-error');
-            } else {
-                $('#alert-' + $(this).attr('id')).addClass('glyphicon-ok input-ok').removeClass('glyphicon-remove input-error');
-            }
-        }
-    }).keyup(function () {
-        $(this).removeClass('input-text-error').addClass('input-text-border');
-    });
-
-    $(document).ready(function () {
-        call_template_data($('#domain-provedor option:selected').attr('id'));
-        $('.ip').mask('099.099.099.099');
-        $('#domain-type option[value="M"]').prop('selected', true).trigger("change");
-    });
-
-</script>
 
 {% include 'footer.twig' %}
